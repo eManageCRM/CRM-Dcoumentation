@@ -129,7 +129,7 @@ info:
     ##Confirmation
     
     
-host: test.com
+host: emanage-dev-websales-api.azurewebsites.net
 schemes:
   - http
 paths:
@@ -232,6 +232,7 @@ paths:
           required: true
           type: string
           format: uuid
+          default: 449885f8-eb6d-4888-bd7d-2530f0ac1c9b
       responses:
         '200':
           description: OK
