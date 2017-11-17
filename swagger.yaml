@@ -87,13 +87,14 @@ info:
       <ul>
         <li><strong>Templates Options</strong> is set default to Individual Emails and can be changed to Bundle Emails by toggling either of the switch.</li>
         <li>Select a SMTP configuration from a dropdown <strong>Use same SMTP configuration for all templates</strong> to have same SMTP account for all Email Tempaltes. SMTP can also be configured individually for each Email Template by editing specific Email Template.</li>
-        <li>All Email Templates have default templates selected, Templates can be customised by editing respective Email Templates.</li>
-        <li>Customised Templates can also be imported from different Campaign with same Language by selecting a Campaign from <strong>Campaigns list of Customized Template with language English</strong> dropdown.</li>
+        <li>All Email Templates have default templates selected, Templates can be customized by editing respective Email Templates.</li>
+        <li>Customized Templates can also be imported from different Campaigns by selecting a Campaign from <strong>Campaigns list of Customized Template with same language</strong> dropdown.</li>
       </ul>
       
       <strong>Country Settings</strong>
       <ul>
-        <li></li>
+        <li>Select a country or multiple countries from <strong>Please Select a Country</strong> multi-select to create prices for individual countries or GLOBAL in <strong>Products</strong> in section below.</li>
+        <li>More countries can be added to multi-select from <strong>Systems Settings</strong> menu in CRM.</li>
       </ul>
 
     <hr/>
