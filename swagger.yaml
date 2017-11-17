@@ -1,0 +1,2955 @@
+swagger: '2.0'
+info:
+  version: v1
+  title: Emanage CRM
+  description: |
+
+    #About
+    <p>
+      The eManage CRM Web sales APIs are built on Hypertext Transfer Protocol (HTTP). eManage CRM provides RESTful APIs (Application Programming Interface) that lets you integrate CRM with your front end pages.
+      It has predictable resource URLs. It returns HTTP response codes to indicate errors. It also accepts and returns JSON in the HTTP body. You can use your favorite HTTP/REST library for your programming language to use the Web Sales API.
+      We’ll describe the basic work flow for setting up your new pages and integrating with the CRM. You’ll find the collection of Methods available below.
+    </p>
+
+    #Allowed HTTPs requests
+    <table class="table" >
+      <tr>
+        <th>Method</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td>PUT </td>
+        <td>Update resource</td>
+      </tr>
+      <tr>
+        <td>POST </td>
+        <td>To create resource</td>
+      </tr>
+      <tr>
+        <td>GET </td>
+        <td>Get a resource or list of resources</td>
+      </tr>
+      <tr>
+        <td>DELETE </td>
+        <td>Remove resource</td>
+      </tr>
+    </table>
+    
+    
+    <div>
+      <h3>Description Of Usual Server Responses:</h3>
+      <ul>
+        <li><strong>200</strong> <code>OK</code> - the request was successful (some API calls may return 201 instead).</li>
+        <li><strong>201</strong> <code>Created</code> - the request was successful and a resource was created.</li>
+        <li><strong>204</strong> <code>No Content</code> - the request was successful but there is no representation to return (i.e. the response is empty).</li>
+        <li><strong>400</strong> <code>Bad Request</code> - the request could not be understood or was missing required parameters.</li>
+        <li><strong>401</strong> <code>Unauthorized</code> - authentication failed or user doesn't have permissions for requested operation.</li>
+        <li><strong>403</strong> <code>Forbidden</code> - access denied.</li>
+        <li><strong>404</strong> <code>Not Found</code> - resource was not found.</li>
+        <li><strong>405</strong> <code>Method Not Allowed</code> - requested method is not supported for resource.</li>
+      </ul>
+    </div>
+    
+    
+        
+    #Quickstart
+    
+    <hr/>
+
+      To have Websales APIs working adequately, an active fully configured Campaign with status 'Active with Traffic' is required to be created in CRM. All the Websales APIs are based on CRM Campaign configurations.
+      To get successful HTTP requests back from Websales APIs Campaign configuration should meet minimum requirements. Please follow steps by step Campaign configuration for each section down below. 
+      
+      ### Creating an intrinsic Campaign in CRM
+      
+      <strong>Campaign Basic</strong>
+      <ul>
+        <li> Provide an adequate <strong>UNIQUE NAME</strong> for a Campaign in <strong>CRM</strong>.</li>
+        <li> Select a <strong>STATUS</strong> from Campaign Status dropdown.</li>
+        <li> Select URL type to provide specfic <strong>URL</strong>s for redirecting Successful or Error payment transaction from thrid party payment providers. Required URL types- Landing, Success, Error and Upsell.</li>
+      </ul>
+      
+      <strong>Campaign Settings</strong>
+      <ul>
+        <li>Select <strong>Default Language</strong> for the Campaign. Selected language will determine Email's sent to customers. For Example- Confimation Email for order purchase by customer from Websales website.</li>
+        <li><strong>First Order Number</strong> text field would be the first Order Number of the first order placed using Campaign.</li>
+        <li><strong>UNIQUE Prefix</strong> is required to be provided that will be prefixed with first order number as Order Number for all the placed orders.</li>
+        <li><strong>First Payment Number</strong> text field would be the first payment Number of the order placed using Campaign.</li>
+        <li>Select a <strong>Ticket Mailbox</strong> to group Tickets of the Campaign for customer service.</li>
+        <li><strong>Clear Web Sales API Cache</strong>, To make Websales APIs load faster, Campaign data gets cached in Websales API user's region. If a change have been made to a Campaign with traffic and Websales API user is unable to see the changes. Campaign data cache can be cleared by clicking on this button.  </li>
+      </ul>
+      
+      <strong>Web Key</strong>
+      <ul>
+        <li>To use Websales API a <strong>UNIQUE</strong> Campaign Web Key is required. By clicking on <strong>Generate Web Key</strong> a unique key can be generated.</li>
+      </ul>
+      
+      <strong>Email Settings</strong>
+      <ul>
+        <li><strong>Templates Options</strong> is set default to Individual Emails and can be changed to Bundle Emails by toggling either of the switch.</li>
+        <li>All Email Templates can be configured with same SMTP </li>
+      </ul>
+      
+      <strong>Email Settings</strong>
+      <ul>
+        <li><strong>Templates Options</strong> is set default to Individual Emails and can be changed to Bundle Emails by toggling either of the switch.</li>
+      </ul>
+
+    <hr/>
+    
+    Most of the API urls have three parts - [domain][webkey][query]. Domain name usually match this pattern emanage-{your_company}-websales-api.azurewebsites.net/api. If you don't know your domain name, please contact our <a href="mailto:someone@example.com"> support </a>.
+    
+    <br/>
+    
+    Webkey is unique for every campaign and can be found in eCRM Campaign Management - Settings - {campaign} - Webkey section. Webkey looks like a generated five parts number 00000000-0000-0000-0000-000000000000. Using a specific domain and webkey we can use all the endpoints described in this documentation.
+
+    <p>Schema page by page</p>
+    <img src='https://i.ytimg.com/vi/w6DW4i-mfbA/hqdefault.jpg'/>
+    
+    ##eCRM settings
+      
+      Before APIs can be used you need to have a campaign up and running. There should be products with prices and countries selected. Campaign status should be "Active with Traffic". Once campaign is ready we need to copy the webkey to our website api.
+    
+    ##Initial data
+      
+      Usually first visited page of our website is landing page. This is where we typical use <a href="#reference/customers/customer-location" >customer location</a> api.
+    
+    ##Products
+      
+      Next step is order page. This is where we display <a href="#reference/products/prices">a list of products</a>. The prices can be dynamicaly recalculated with <a href="#reference/coupons/apply-coupon">a coupon code</a>.
+      
+    ##Placing an order
+    
+      Order form can be dynamically created with <a href="#reference/campaigns/countries">a list of countries</a> and <a href="#reference/campaigns/states">states</a>.
+      We suggest to preselect country option with a customer's country, based on <a href="#reference/customers/customer-location">their location</a>. List of states/provinces can be updated dynamically each time customer change the country.
+    
+    ##Upsells
+    ##Confirmation
+    
+    
+host: test.com
+schemes:
+  - http
+paths:
+  /api/callback/onpex:
+    x-description: Call back to update payment proccessed by third party payment providers
+    get:
+      tags:
+        - Callback
+      operationId: Callback_Get
+      consumes: []
+      produces:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+      parameters:
+        - name: mcTxId
+          in: query
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/PlaceOrderUpdateReturnViewModel'
+    post:
+      tags:
+        - Callback
+      operationId: Callback_Post
+      consumes:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+      parameters:
+        - name: model
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/CallbackOnpex'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: object
+  /api/callback/aftership:
+    x-summary: Aftership
+    x-description: |
+      Used as callback api to update shipment information from Aftership (Shipment tracking)
+    post:
+      summary: Update shipment information
+      tags:
+        - Callback
+      operationId: Callback_PostAftership
+      consumes:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+      parameters:
+        - name: model
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/CallbackAftership'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: object
+  '/api/campaigns/{webkey}/settings':
+    x-summary: Settings
+    x-description: Retrieve basic campaign information, such as campaign name and default language code.
+    get:
+      summary: Get campaign settings
+      tags:
+        - Campaigns
+      operationId: Campaigns_GetCampaignSettings
+      consumes: []
+      produces:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+      parameters:
+        - name: webkey
+          in: path
+          required: true
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/CampaignSettingsViewModel'
+  '/api/campaigns/{webkey}/mid':
+    get:
+      tags:
+        - Campaigns
+      operationId: Campaigns_GetMidAvailability
+      consumes: []
+      produces:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+      parameters:
+        - name: webkey
+          in: path
+          required: true
+          type: string
+          format: uuid
+        - name: ip
+          in: query
+          required: false
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: boolean
+  '/api/campaigns/{webkey}/countries':
+    x-summary: Countries
+    x-description: |
+      To place an order we need to have customers address. There are specific countries selected in the campaign and we need to have those countries listed on our website. Since we can have one website template for differen campaigns, we want the list of countries be dynamically populated in every instance of the website.
+      This endpoint returns a list of countries selected in the campaign. Once retrieved the list can be used in the dropdown.
+    get:
+      summary: Get list of countries
+      tags:
+        - Campaigns
+      operationId: Campaigns_GetCountries
+      consumes: []
+      produces:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+      parameters:
+        - name: webkey
+          in: path
+          required: true
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: OK
+          x-example: 42
+          schema:
+            $ref: '#/definitions/CampaignCountryViewModel'
+  '/api/campaigns/{webkey}/countrystates':
+    x-summary: States
+    x-description: |
+      Each country might have multiple states/provinces. We can also retrieve this data as soon as we have <a href="https://emanagecrm.docs.apiary.io/#reference/campaigns/apicampaignswebkeycountries">list of countries</a>. A good idea is to get provinces after customer selects country.
+      We already know how to get <a href="https://emanagecrm.docs.apiary.io/#reference/customers/apicampaignswebkeycustomerslocation">customer location</a>. So usually both country and states/provinces are going to be ready as soon as we get customer location.
+    get:
+      summary: Get list of states
+      tags:
+        - Campaigns
+      operationId: Campaigns_GetCountryStates
+      consumes: []
+      produces:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+      parameters:
+        - name: webkey
+          in: path
+          required: true
+          type: string
+          format: uuid
+        - name: countryCode
+          in: query
+          required: true
+          type: string
+        - name: languageCode
+          in: query
+          required: false
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/CampaignCountryStateViewModel'
+  '/api/campaigns/{webkey}/affiliate':
+    post:
+      tags:
+        - Campaigns
+      operationId: Campaigns_Post
+      consumes:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+      parameters:
+        - name: webkey
+          in: path
+          required: true
+          type: string
+          format: uuid
+        - name: model
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/CampaignAffiliateSaveViewModel'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: object
+  '/api/campaigns/{webkey}/upsells':
+    x-summary: Upsells
+    x-description: |
+      After customer placed an order we can offer them upsells configured in the campaign.
+      The upsells api provides a list of upsells. Each upsell has its own campaign webkey and url. The new webkey can be used to retrieve all necessary data for the upsell offer and to place a new order.
+    get:
+      summary: Get list of upsells
+      tags:
+        - Campaigns
+      operationId: Campaigns_GetUpsells
+      consumes: []
+      produces:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+      parameters:
+        - name: webkey
+          in: path
+          required: true
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/CampaignUpsellItemViewModel'
+  /api/sofort/chargebacks:
+    post:
+      tags:
+        - Chargebacks
+      operationId: Chargebacks_Post
+      consumes:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+      parameters:
+        - name: xml
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/XElement'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: object
+  '/api/campaigns/{webkey}/coupons/{couponCode}':
+    x-summary: Settings
+    x-description: |
+      ??? All the information for the coupon???
+    get:
+      summary: Get coupon details
+      tags:
+        - Coupons
+      operationId: Coupons_GetCoupon
+      consumes: []
+      produces:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+      parameters:
+        - name: webkey
+          in: path
+          required: true
+          type: string
+          format: uuid
+        - name: couponCode
+          in: path
+          required: true
+          type: string
+        - name: currencyCode
+          in: query
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/CampaignCouponViewModel'
+  '/api/campaigns/{webkey}/coupons/{couponCode}/calculate':
+    x-summary: Apply coupon
+    x-description: |
+      This endpoint can be used to calculate discounted prices based on coupon code, currency, product and shipping prices.
+    get:
+      summary: Calculate prices
+      tags:
+        - Coupons
+      operationId: Coupons_GetCouponCalculated
+      consumes: []
+      produces:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+      parameters:
+        - name: webkey
+          in: path
+          required: true
+          type: string
+          format: uuid
+        - name: couponCode
+          in: path
+          required: true
+          type: string
+        - name: currencyCode
+          in: query
+          required: true
+          type: string
+        - name: productPrice
+          in: query
+          required: true
+          type: number
+          format: double
+        - name: shippingPrice
+          in: query
+          required: true
+          type: number
+          format: double
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/CampaignCouponCalculatedViewModel'
+  '/api/customers/export/{datini}/{datend}':
+    get:
+      tags:
+        - Customers
+      operationId: Customers_Get
+      consumes: []
+      produces:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+      parameters:
+        - name: datini
+          in: path
+          required: true
+          type: string
+          format: date-time
+        - name: datend
+          in: path
+          required: true
+          type: string
+          format: date-time
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/ExportCustomerViewModel'
+  /api/customers:
+    get:
+      tags:
+        - Customers
+      operationId: Customers_Get
+      consumes: []
+      produces:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+      parameters:
+        - name: email
+          in: query
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/CustomerViewModel'
+  '/api/customers/{webkey}':
+    x-summary: Create or update
+    x-description: |
+      Update customer information.
+    put:
+      summary: Update customer
+      tags:
+        - Customers
+      operationId: Customers_Put
+      consumes:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+      parameters:
+        - name: webkey
+          in: path
+          required: true
+          type: string
+          format: uuid
+        - name: email
+          in: query
+          required: true
+          type: string
+        - name: model
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/CustomerAddressOrderSaveViewModel'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/CustomerReturnViewModel'
+    post:
+      summary: Create a new customer profile
+      tags:
+        - Customers
+      operationId: Customers_Post
+      consumes:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+      parameters:
+        - name: webkey
+          in: path
+          required: true
+          type: string
+          format: uuid
+        - name: model
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/CustomerSaveViewModel'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/CustomerViewModel'
+  '/api/campaigns/{webkey}/customers/location':
+    x-summary: Customer Location
+    x-description: |
+      Information about customer location can be used for <a href="https://emanagecrm.docs.apiary.io/#reference/products">retrieving products</a>,
+      prefilling forms or changing website content.
+    get:
+      summary: Get customer location information
+      tags:
+        - Customers
+      operationId: Customers_GetLocalization
+      consumes: []
+      produces:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+      parameters:
+        - name: webkey
+          in: path
+          required: true
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/CustomerLocationViewModel'
+  /api/files/download:
+    get:
+      tags:
+        - Files
+      operationId: Files_Get
+      consumes: []
+      produces:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+      parameters:
+        - name: key
+          in: query
+          required: true
+          type: string
+        - name: id
+          in: query
+          required: true
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: object
+  /api/fraudprevention:
+    post:
+      tags:
+        - FraudPrevention
+      operationId: FraudPrevention_Post
+      consumes:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+      parameters:
+        - name: transaction
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/FraudAnalysisTransaction'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/FraudAnalysisResponse'
+  '/api/orders/{webkey}':
+    x-summary: Main campaign
+    x-description: |
+      Order stuff
+    post:
+      summary: Place main order
+      tags:
+        - Orders
+      operationId: Orders_Post
+      consumes:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+      parameters:
+        - name: webkey
+          in: path
+          required: true
+          type: string
+          format: uuid
+        - name: model
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/PlaceOrderSaveViewModel'
+        - name: behaviorId
+          in: query
+          required: false
+          type: integer
+          format: int32
+        - name: useShippingCountry
+          in: query
+          required: false
+          type: boolean
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/PlaceOrderSaveResponseViewModel'
+    put:
+          summary: Confirm payment with exteranl payment processor
+          tags:
+            - Orders
+          operationId: Orders_Put
+          consumes:
+            - application/json
+            - text/json
+            - application/xml
+            - text/xml
+            - application/x-www-form-urlencoded
+          produces:
+            - application/json
+            - text/json
+            - application/xml
+            - text/xml
+          parameters:
+            - name: webkey
+              in: path
+              required: true
+              type: string
+              format: uuid
+            - name: trackingNumber
+              in: query
+              required: true
+              type: string
+            - name: model
+              in: body
+              required: true
+              schema:
+                $ref: '#/definitions/PlaceOrderUpdateSaveViewModel'
+            - name: isTest
+              in: query
+              required: false
+              type: boolean
+          responses:
+            '200':
+              description: OK
+              schema:
+                $ref: '#/definitions/PlaceOrderUpdateReturnViewModel'            
+  '/api/orders/upsell/{orderNumber}':
+    post:
+      tags:
+        - Orders
+      operationId: Orders_Post
+      consumes: []
+      produces:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+      parameters:
+        - name: orderNumber
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/PlaceOrderUpsellReturnViewModel'
+  '/api/payments/transactions/{orderNumber}':
+    x-summary: Payments
+    x-description: Used to verify the status of the payment transaction
+    get:
+      summary: Verify payments
+      tags:
+        - Payments
+      operationId: Payments_Get
+      consumes: []
+      produces:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+      parameters:
+        - name: orderNumber
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: object
+  '/api/campaigns/{webkey}/products/prices':
+    x-summary: Prices
+    get:
+      summary: Get product prices
+      tags:
+        - Products
+      operationId: Products_GetCampaignProductPrices
+      consumes: []
+      produces:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+      parameters:
+        - name: webkey
+          in: path
+          required: true
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/CampaignProductSimpleListViewModel'
+  '/api/campaigns/{webkey}/products/prices/{countryCode}':
+    get:
+      summary: Get product prices (with country code)
+      tags:
+        - Products
+      operationId: Products_GetCampaignProductPricesByCountry
+      consumes: []
+      produces:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+      parameters:
+        - name: webkey
+          in: path
+          required: true
+          type: string
+          format: uuid
+        - name: countryCode
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/CampaignProductSimpleListViewModel'
+  '/api/campaigns/{webkey}/products/{productId}/miniupsells':
+    x-summary: Mini upsells
+    get:
+      tags:
+        - Products
+      operationId: Products_GetCampaignMiniUpsellsByCountry
+      consumes: []
+      produces:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+      parameters:
+        - name: webkey
+          in: path
+          required: true
+          type: string
+          format: uuid
+        - name: productId
+          in: path
+          required: true
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/CampaignProductListViewModel'
+  '/api/campaigns/{webkey}/products/{productId}/miniupsells/{countryCode}':
+    get:
+      tags:
+        - Products
+      operationId: Products_GetCampaignMiniUpsells
+      consumes: []
+      produces:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+      parameters:
+        - name: webkey
+          in: path
+          required: true
+          type: string
+          format: uuid
+        - name: productId
+          in: path
+          required: true
+          type: integer
+          format: int32
+        - name: countryCode
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/CampaignProductSimpleListViewModel'
+  '/api/campaigns/{webkey}/products/{productId}/{countryCode}':
+    get:
+      tags:
+        - Products
+      operationId: Products_GetCampaignProductById
+      consumes: []
+      produces:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+      parameters:
+        - name: webkey
+          in: path
+          required: true
+          type: string
+          format: uuid
+        - name: productId
+          in: path
+          required: true
+          type: integer
+          format: int32
+        - name: countryCode
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/CampaignProductViewModel'
+  '/api/campaigns/{webkey}/shippings/{productId}':
+    get:
+      tags:
+        - Products
+      operationId: Products_GetCampaignShippings
+      consumes: []
+      produces:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+      parameters:
+        - name: webkey
+          in: path
+          required: true
+          type: string
+          format: uuid
+        - name: productId
+          in: path
+          required: true
+          type: integer
+          format: int32
+        - name: countryCode
+          in: query
+          required: false
+          type: string
+        - name: isMiniUpsell
+          in: query
+          required: false
+          type: boolean
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/CampaignProductShippingViewModel'
+  '/api/shoppingcart/{webkey}/new':
+    x-summary: Shopping cart
+    x-description: |
+      Create new shopping cart
+    post:
+      summary: Create shopping cart
+      tags:
+        - ShoppingCart
+      operationId: ShoppingCart_CreateAsync
+      consumes:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+      parameters:
+        - name: webkey
+          in: path
+          required: true
+          type: string
+          format: uuid
+        - name: shoppingCart
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/ShoppingCartCreateViewModel'
+      responses:
+        '200':
+          description: OK
+          schema:
+            format: uuid
+            type: string
+            example: 00000000-0000-0000-0000-000000000000
+  '/api/shoppingcart/{webkey}':
+    get:
+      tags:
+        - ShoppingCart
+      operationId: ShoppingCart_GetShoppingCart
+      consumes: []
+      produces:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+      parameters:
+        - name: webkey
+          in: path
+          required: true
+          type: string
+          format: uuid
+        - name: sessionId
+          in: query
+          required: true
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/ShoppingCartPublicViewModel'
+  '/api/shoppingcart/{webkey}/checkout':
+    post:
+      tags:
+        - ShoppingCart
+      operationId: ShoppingCart_CheckoutAsync
+      consumes:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+      parameters:
+        - name: webkey
+          in: path
+          required: true
+          type: string
+          format: uuid
+        - name: details
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/CheckoutRequest'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/CheckoutResponse'
+  '/api/shoppingcart/{webkey}/confirmpayment':
+    post:
+      tags:
+        - ShoppingCart
+      operationId: ShoppingCart_ConfirmPaymentAsync
+      consumes: []
+      produces:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+      parameters:
+        - name: webkey
+          in: path
+          required: true
+          type: string
+          format: uuid
+        - name: trackingNumber
+          in: query
+          required: true
+          type: string
+        - name: paymentProvider
+          in: query
+          required: true
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/ConfirmPaymentResponse'
+  '/api/shoppingcart/{webkey}/applycoupon':
+    post:
+      tags:
+        - ShoppingCart
+      operationId: ShoppingCart_ApplyCouponAsync
+      consumes: []
+      produces:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+      parameters:
+        - name: webkey
+          in: path
+          required: true
+          type: string
+          format: uuid
+        - name: sessionId
+          in: query
+          required: true
+          type: string
+          format: uuid
+        - name: couponCode
+          in: query
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/ShoppingCartPublicViewModel'
+  '/api/shoppingcart/{webkey}/customers/new':
+    post:
+      tags:
+        - ShoppingCart
+      operationId: ShoppingCart_CreateCustomerAccountAsync
+      consumes:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+      parameters:
+        - name: webkey
+          in: path
+          required: true
+          type: string
+          format: uuid
+        - name: sessionId
+          in: query
+          required: true
+          type: string
+          format: uuid
+        - name: details
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/CustomerSaveViewModel'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: object
+  '/api/shoppingcart/{webkey}/add':
+    post:
+      tags:
+        - ShoppingCart
+      operationId: ShoppingCart_AddProduct
+      consumes:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+      parameters:
+        - name: webkey
+          in: path
+          required: true
+          type: string
+          format: uuid
+        - name: sessionId
+          in: query
+          required: true
+          type: string
+          format: uuid
+        - name: productVM
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/ShoppingCartProductCreateViewModel'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: object
+  '/api/shoppingcart/{webkey}/remove':
+    delete:
+      tags:
+        - ShoppingCart
+      operationId: ShoppingCart_RemoveProduct
+      consumes: []
+      produces:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+      parameters:
+        - name: webkey
+          in: path
+          required: true
+          type: string
+          format: uuid
+        - name: sessionId
+          in: query
+          required: true
+          type: string
+          format: uuid
+        - name: productId
+          in: query
+          required: true
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: object
+  '/api/shoppingcart/{webkey}/update':
+    put:
+      tags:
+        - ShoppingCart
+      operationId: ShoppingCart_UpdateQuantity
+      consumes: []
+      produces:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+      parameters:
+        - name: webkey
+          in: path
+          required: true
+          type: string
+          format: uuid
+        - name: sessionId
+          in: query
+          required: true
+          type: string
+          format: uuid
+        - name: productId
+          in: query
+          required: true
+          type: integer
+          format: int32
+        - name: quantity
+          in: query
+          required: true
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: object
+  '/api/shoppingcart/{webkey}/shippingmethod':
+    put:
+      tags:
+        - ShoppingCart
+      operationId: ShoppingCart_SetShippingMethod
+      consumes: []
+      produces:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+      parameters:
+        - name: webkey
+          in: path
+          required: true
+          type: string
+          format: uuid
+        - name: sessionId
+          in: query
+          required: true
+          type: string
+          format: uuid
+        - name: productId
+          in: query
+          required: true
+          type: integer
+          format: int32
+        - name: shippingMethodId
+          in: query
+          required: true
+          type: integer
+          format: int32
+        - name: keepProductPrice
+          in: query
+          required: false
+          type: boolean
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: object
+definitions:
+  PlaceOrderUpdateReturnViewModel:
+    type: object
+    properties:
+      success:
+        type: boolean
+      message:
+        type: string
+      address:
+        $ref: '#/definitions/PlaceOrderAddressResponseViewModel'
+      suggestedAddress:
+        $ref: '#/definitions/PlaceOrderSuggestedAddressResponseViewModel'
+      isVerifiedAddress:
+        type: boolean
+  PlaceOrderAddressResponseViewModel:
+    type: object
+    properties:
+      firstName:
+        type: string
+      lastName:
+        type: string
+      middleName:
+        type: string
+      email:
+        type: string
+      address1:
+        type: string
+      address2:
+        type: string
+      city:
+        type: string
+      zipCode:
+        type: string
+      state:
+        type: string
+      country:
+        type: string
+  PlaceOrderSuggestedAddressResponseViewModel:
+    type: object
+    properties:
+      address1:
+        type: string
+      state:
+        type: string
+      city:
+        type: string
+      zipCode:
+        type: string
+      countryName:
+        type: string
+      countryCode:
+        type: string
+  CallbackOnpex:
+    type: object
+    properties:
+      transactionResults:
+        type: array
+        items:
+          $ref: '#/definitions/CallbackTransactionResultsOnpex'
+      status:
+        type: string
+      version:
+        type: string
+      message:
+        type: string
+  CallbackTransactionResultsOnpex:
+    type: object
+    properties:
+      txId:
+        type: string
+      mcTxId:
+        type: string
+      destTxId:
+        type: string
+      startDate:
+        type: string
+      startStamp:
+        format: int64
+        type: integer
+      endDate:
+        type: string
+      endStamp:
+        format: int64
+        type: integer
+      deltaMsec:
+        format: int32
+        type: integer
+      message:
+        type: string
+      debitAmount:
+        format: double
+        type: number
+      creditAmount:
+        format: double
+        type: number
+      currency:
+        type: string
+      status:
+        type: string
+  CallbackAftership:
+    type: object
+    properties:
+      event:
+        type: string
+      msg:
+        $ref: '#/definitions/CallbackMsg'
+      ts:
+        type: string
+  CallbackMsg:
+    type: object
+    properties:
+      id:
+        type: string
+      custom_fields:
+        $ref: '#/definitions/AftershipCustomFields'
+      tracking_number:
+        type: string
+      title:
+        type: string
+      origin_country_iso3:
+        type: string
+      destination_country_iso3:
+        type: string
+      shipment_package_count:
+        type: string
+      active:
+        type: string
+      order_id:
+        type: string
+      order_id_path:
+        type: string
+      customer_name:
+        type: string
+      source:
+        type: string
+      emails:
+        type: array
+        items:
+          type: string
+      tag:
+        type: string
+      tracked_count:
+        type: string
+      expected_delivery:
+        type: string
+      signed_by:
+        type: string
+      shipment_type:
+        type: string
+      tracking_account_number:
+        type: string
+      tracking_postal_code:
+        type: string
+      tracking_ship_date:
+        type: string
+      created_at:
+        type: string
+      updated_at:
+        type: string
+      slug:
+        type: string
+      unique_token:
+        type: string
+      checkpoints:
+        type: array
+        items:
+          $ref: '#/definitions/CallbackCheckpoint'
+  AftershipCustomFields:
+    type: object
+    properties:
+      client_prefix:
+        type: string
+  CallbackCheckpoint:
+    type: object
+    properties:
+      country_name:
+        type: string
+      country_iso3:
+        type: string
+      state:
+        type: string
+      city:
+        type: string
+      zip:
+        type: string
+      message:
+        type: string
+      tag:
+        type: string
+      created_at:
+        type: string
+      checkpoint_time:
+        type: string
+      slug:
+        type: string
+  CampaignSettingsViewModel:
+    type: object
+    properties:
+      campaignName:
+        type: string
+      defaultLanguageCode:
+        type: string
+  CampaignCountryViewModel:
+    type: object
+    properties:
+      countryName:
+        type: string
+      countryCode:
+        type: string
+      currencyCode:
+        type: string
+      currencyName:
+        type: string
+      currencySign:
+        type: string
+  CampaignCountryStateViewModel:
+    type: object
+    properties:
+      code:
+        type: string
+      name:
+        type: string
+  CampaignAffiliateSaveViewModel:
+    required:
+      - firstName
+      - lastName
+      - email
+      - phoneNumber
+    type: object
+    properties:
+      firstName:
+        type: string
+      lastName:
+        type: string
+      email:
+        type: string
+      phoneNumber:
+        type: string
+      skype:
+        type: string
+  CampaignUpsellItemViewModel:
+    type: object
+    properties:
+      id:
+        format: int32
+        type: integer
+      index:
+        format: int32
+        type: integer
+      webKey:
+        format: uuid
+        type: string
+        example: 00000000-0000-0000-0000-000000000000
+      url:
+        type: string
+  XElement:
+    type: object
+    properties:
+      firstAttribute:
+        $ref: '#/definitions/XAttribute'
+        readOnly: true
+      hasAttributes:
+        type: boolean
+        readOnly: true
+      hasElements:
+        type: boolean
+        readOnly: true
+      isEmpty:
+        type: boolean
+        readOnly: true
+      lastAttribute:
+        $ref: '#/definitions/XAttribute'
+        readOnly: true
+      name:
+        type: object
+      nodeType:
+        format: int32
+        enum:
+          - 0
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+          - 6
+          - 7
+          - 8
+          - 9
+          - 10
+          - 11
+          - 12
+          - 13
+          - 14
+          - 15
+          - 16
+          - 17
+        type: integer
+        readOnly: true
+      value:
+        type: string
+      firstNode:
+        $ref: '#/definitions/XNode'
+        readOnly: true
+      lastNode:
+        $ref: '#/definitions/XNode'
+        readOnly: true
+      nextNode:
+        $ref: '#/definitions/XNode'
+        readOnly: true
+      previousNode:
+        $ref: '#/definitions/XNode'
+        readOnly: true
+      baseUri:
+        type: string
+        readOnly: true
+      document:
+        $ref: '#/definitions/XDocument'
+        readOnly: true
+      parent:
+        $ref: '#/definitions/XElement'
+        readOnly: true
+  XAttribute:
+    type: object
+    properties:
+      isNamespaceDeclaration:
+        type: boolean
+        readOnly: true
+      name:
+        type: object
+        readOnly: true
+      nextAttribute:
+        $ref: '#/definitions/XAttribute'
+        readOnly: true
+      nodeType:
+        format: int32
+        enum:
+          - 0
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+          - 6
+          - 7
+          - 8
+          - 9
+          - 10
+          - 11
+          - 12
+          - 13
+          - 14
+          - 15
+          - 16
+          - 17
+        type: integer
+        readOnly: true
+      previousAttribute:
+        $ref: '#/definitions/XAttribute'
+        readOnly: true
+      value:
+        type: string
+      baseUri:
+        type: string
+        readOnly: true
+      document:
+        $ref: '#/definitions/XDocument'
+        readOnly: true
+      parent:
+        $ref: '#/definitions/XElement'
+        readOnly: true
+  XNode:
+    type: object
+    properties:
+      nextNode:
+        $ref: '#/definitions/XNode'
+        readOnly: true
+      previousNode:
+        $ref: '#/definitions/XNode'
+        readOnly: true
+      baseUri:
+        type: string
+        readOnly: true
+      document:
+        $ref: '#/definitions/XDocument'
+        readOnly: true
+      nodeType:
+        format: int32
+        enum:
+          - 0
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+          - 6
+          - 7
+          - 8
+          - 9
+          - 10
+          - 11
+          - 12
+          - 13
+          - 14
+          - 15
+          - 16
+          - 17
+        type: integer
+        readOnly: true
+      parent:
+        $ref: '#/definitions/XElement'
+        readOnly: true
+  XDocument:
+    type: object
+    properties:
+      declaration:
+        $ref: '#/definitions/XDeclaration'
+      documentType:
+        $ref: '#/definitions/XDocumentType'
+        readOnly: true
+      nodeType:
+        format: int32
+        enum:
+          - 0
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+          - 6
+          - 7
+          - 8
+          - 9
+          - 10
+          - 11
+          - 12
+          - 13
+          - 14
+          - 15
+          - 16
+          - 17
+        type: integer
+        readOnly: true
+      root:
+        $ref: '#/definitions/XElement'
+        readOnly: true
+      firstNode:
+        $ref: '#/definitions/XNode'
+        readOnly: true
+      lastNode:
+        $ref: '#/definitions/XNode'
+        readOnly: true
+      nextNode:
+        $ref: '#/definitions/XNode'
+        readOnly: true
+      previousNode:
+        $ref: '#/definitions/XNode'
+        readOnly: true
+      baseUri:
+        type: string
+        readOnly: true
+      document:
+        $ref: '#/definitions/XDocument'
+        readOnly: true
+      parent:
+        $ref: '#/definitions/XElement'
+        readOnly: true
+  XDeclaration:
+    type: object
+    properties:
+      encoding:
+        type: string
+      standalone:
+        type: string
+      version:
+        type: string
+  XDocumentType:
+    type: object
+    properties:
+      internalSubset:
+        type: string
+      name:
+        type: string
+      nodeType:
+        format: int32
+        enum:
+          - 0
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+          - 6
+          - 7
+          - 8
+          - 9
+          - 10
+          - 11
+          - 12
+          - 13
+          - 14
+          - 15
+          - 16
+          - 17
+        type: integer
+        readOnly: true
+      publicId:
+        type: string
+      systemId:
+        type: string
+      nextNode:
+        $ref: '#/definitions/XNode'
+        readOnly: true
+      previousNode:
+        $ref: '#/definitions/XNode'
+        readOnly: true
+      baseUri:
+        type: string
+        readOnly: true
+      document:
+        $ref: '#/definitions/XDocument'
+        readOnly: true
+      parent:
+        $ref: '#/definitions/XElement'
+        readOnly: true
+  CampaignCouponViewModel:
+    type: object
+    properties:
+      discountBehavior:
+        type: string
+      discountType:
+        type: string
+      discount:
+        format: double
+        type: number
+      formattedDiscount:
+        type: string
+      minimalPurchase:
+        format: double
+        type: number
+      formattedMinimalPurchase:
+        type: string
+      isFreeShipping:
+        type: boolean
+  CampaignCouponCalculatedViewModel:
+    type: object
+    properties:
+      totalDiscountedPrice:
+        format: double
+        type: number
+      formattedTotalDiscountedPrice:
+        type: string
+      totalDiscountedShippingPrice:
+        format: double
+        type: number
+      formattedTotalDiscountedShippingPrice:
+        type: string
+      freeShipping:
+        type: boolean
+  ExportCustomerViewModel:
+    type: object
+    properties:
+      firstName:
+        type: string
+      middleName:
+        type: string
+      lastName:
+        type: string
+      email:
+        type: string
+      address1:
+        type: string
+      address2:
+        type: string
+      city:
+        type: string
+      zipCode:
+        type: string
+      state:
+        type: string
+      countryCode:
+        type: string
+      countryName:
+        type: string
+      phoneNumber:
+        type: string
+      ip:
+        type: string
+      campaignName:
+        type: string
+  CustomerViewModel:
+    type: object
+    properties:
+      id:
+        format: int32
+        type: integer
+      email:
+        type: string
+      customerIdentificationTypeId:
+        format: int32
+        type: integer
+      customerIdentificationValue:
+        type: string
+      shippingAddress:
+        type: array
+        items:
+          $ref: '#/definitions/AddressViewModel'
+      billingAddress:
+        type: array
+        items:
+          $ref: '#/definitions/AddressViewModel'
+  AddressViewModel:
+    type: object
+    properties:
+      id:
+        format: int32
+        type: integer
+      firstName:
+        type: string
+      middleName:
+        type: string
+      lastName:
+        type: string
+      address1:
+        type: string
+      address2:
+        type: string
+      city:
+        type: string
+      zipCode:
+        type: string
+      state:
+        type: string
+      countryCode:
+        type: string
+      countryName:
+        type: string
+      phoneNumber:
+        type: string
+  CustomerAddressOrderSaveViewModel:
+    required:
+      - orderNumbers
+      - useShippingAddressForBilling
+      - shippingAddress
+    type: object
+    properties:
+      verifiedByCustomer:
+        type: boolean
+      customerIdentificationTypeId:
+        format: int32
+        type: integer
+      customerIdentificationValue:
+        type: string
+      newCustomerEmail:
+        type: string
+      orderNumbers:
+        type: array
+        items:
+          type: string
+      useShippingAddressForBilling:
+        type: boolean
+      shippingAddress:
+        $ref: '#/definitions/CustomerAddressSaveViewModel'
+      billingAddress:
+        $ref: '#/definitions/CustomerAddressSaveViewModel'
+  CustomerAddressSaveViewModel:
+    required:
+      - firstName
+      - lastName
+      - address1
+      - city
+      - zipCode
+      - countryCode
+      - phoneNumber
+    type: object
+    properties:
+      firstName:
+        type: string
+      middleName:
+        type: string
+      lastName:
+        type: string
+      address1:
+        type: string
+      address2:
+        type: string
+      city:
+        type: string
+      zipCode:
+        type: string
+      state:
+        type: string
+      countryCode:
+        type: string
+      phoneNumber:
+        type: string
+  CustomerReturnViewModel:
+    type: object
+    properties:
+      id:
+        format: int32
+        type: integer
+      email:
+        type: string
+      customerIdentificationTypeId:
+        format: int32
+        type: integer
+      customerIdentificationValue:
+        type: string
+      isVerifiedAddress:
+        type: boolean
+      isVerifiedByCustomer:
+        type: boolean
+      shippingAddress:
+        $ref: '#/definitions/CustomerReturnAddressViewModel'
+      billingAddress:
+        $ref: '#/definitions/CustomerReturnAddressViewModel'
+      suggestedAddress:
+        $ref: '#/definitions/CustomerReturnSuggestedAddressViewModel'
+  CustomerReturnAddressViewModel:
+    type: object
+    properties:
+      id:
+        format: int32
+        type: integer
+      firstName:
+        type: string
+      middleName:
+        type: string
+      lastName:
+        type: string
+      address1:
+        type: string
+      address2:
+        type: string
+      city:
+        type: string
+      zipCode:
+        type: string
+      state:
+        type: string
+      countryCode:
+        type: string
+      countryName:
+        type: string
+      phoneNumber:
+        type: string
+      isVerified:
+        type: boolean
+  CustomerReturnSuggestedAddressViewModel:
+    type: object
+    properties:
+      address1:
+        type: string
+      city:
+        type: string
+      zipCode:
+        type: string
+      state:
+        type: string
+      countryCode:
+        type: string
+      countryName:
+        type: string
+  CustomerSaveViewModel:
+    required:
+      - email
+      - useShippingAddressForBilling
+      - shippingAddress
+    type: object
+    properties:
+      email:
+        type: string
+      phoneNumber:
+        type: string
+      customerIdentificationTypeId:
+        format: int32
+        type: integer
+      customerIdentificationValue:
+        type: string
+      useShippingAddressForBilling:
+        type: boolean
+      shippingAddress:
+        $ref: '#/definitions/CustomerAddressSaveViewModel'
+      billingAddress:
+        $ref: '#/definitions/CustomerAddressSaveViewModel'
+      analytics:
+        $ref: '#/definitions/CustomerAnalyticsViewModel'
+  CustomerAnalyticsViewModel:
+    type: object
+    properties:
+      referringUrl:
+        type: string
+      landingUrl:
+        type: string
+      browser:
+        type: string
+      os:
+        type: string
+      screenResolution:
+        type: string
+      device:
+        type: string
+  CustomerLocationViewModel:
+    type: object
+    properties:
+      countryCode:
+        type: string
+        example: CA
+      countryName:
+        type: string
+        example: Canada
+      regionCode:
+        type: string
+        example: BC
+      regionName:
+        type: string
+        example: British Columbia
+      city:
+        type: string
+        example: Vancouver
+      zipCode:
+        type: string
+        example: V4G0N8
+      currencyCode:
+        type: string
+        example: CAD
+  FraudAnalysisTransaction:
+    type: object
+    properties:
+      campaignId:
+        format: int32
+        type: integer
+      emailAddress:
+        type: string
+      ip:
+        type: string
+      creditCardCountryCode:
+        type: string
+      address:
+        $ref: '#/definitions/CustomerAddressViewModel'
+      creditCard:
+        $ref: '#/definitions/CreditCardViewModel'
+  CustomerAddressViewModel:
+    required:
+      - firstName
+      - lastName
+      - address1
+      - city
+      - countryCode
+      - zipCode
+    type: object
+    properties:
+      id:
+        format: int32
+        type: integer
+      firstName:
+        type: string
+      middleName:
+        type: string
+      lastName:
+        type: string
+      address1:
+        type: string
+      address2:
+        type: string
+      city:
+        type: string
+      state:
+        type: string
+      countryCode:
+        type: string
+      countryName:
+        type: string
+      zipCode:
+        type: string
+      phoneNumber:
+        type: string
+  CreditCardViewModel:
+    required:
+      - cardNumber
+      - expirationDate
+    type: object
+    properties:
+      cardNumber:
+        type: string
+      expirationDate:
+        pattern: '[0-9]{2}/[0-9]{4}'
+        type: string
+      cvv:
+        type: string
+      reportedCard:
+        type: boolean
+  FraudAnalysisResponse:
+    type: object
+    properties:
+      isFraud:
+        type: boolean
+      detectedFraudRules:
+        type: array
+        items:
+          type: string
+  PlaceOrderSaveViewModel:
+    required:
+      - useShippingAddressForBilling
+      - productId
+      - payment
+    type: object
+    properties:
+      couponCode:
+        type: string
+      shippingMethodId:
+        format: int32
+        type: integer
+      comment:
+        type: string
+      useShippingAddressForBilling:
+        type: boolean
+      productId:
+        format: int32
+        type: integer
+      campaignUpsell:
+        $ref: '#/definitions/PlaceOrderUpSellSaveViewModel'
+      miniUpsell:
+        $ref: '#/definitions/PlaceOrderMiniUpSellSaveViewModel'
+      customer:
+        $ref: '#/definitions/PlaceOrderCustomerSaveViewModel'
+      payment:
+        $ref: '#/definitions/PlaceOrderPaymentSaveViewModel'
+      shippingAddress:
+        $ref: '#/definitions/PlaceOrderAddressSaveViewModel'
+      billingAddress:
+        $ref: '#/definitions/PlaceOrderAddressSaveViewModel'
+      analytics:
+        $ref: '#/definitions/PlaceOrderAnalyticsViewModel'
+      analyticsV2:
+        $ref: '#/definitions/PlaceOrderAnalyticsBase64ViewModel'
+      funnelBoxId:
+        format: int32
+        type: integer
+      antiFraud:
+        $ref: '#/definitions/PlaceOrderFraudSaveViewModel'
+      callCenter:
+        $ref: '#/definitions/PlaceOrderCallCenterSaveViewModel'
+  PlaceOrderUpSellSaveViewModel:
+    type: object
+    properties:
+      webKey:
+        format: uuid
+        type: string
+        example: 00000000-0000-0000-0000-000000000000
+      relatedOrderNumber:
+        type: string
+  PlaceOrderMiniUpSellSaveViewModel:
+    type: object
+    properties:
+      productId:
+        format: int32
+        type: integer
+      shippingMethodId:
+        format: int32
+        type: integer
+  PlaceOrderCustomerSaveViewModel:
+    required:
+      - email
+    type: object
+    properties:
+      id:
+        format: int32
+        type: integer
+      customerIdentificationTypeId:
+        format: int32
+        type: integer
+      customerIdentificationValue:
+        type: string
+      email:
+        type: string
+      phoneNumber:
+        type: string
+      firstName:
+        type: string
+      middleName:
+        type: string
+      lastName:
+        type: string
+      ip:
+        type: string
+  PlaceOrderPaymentSaveViewModel:
+    type: object
+    properties:
+      paymentProcessorId:
+        format: int32
+        type: integer
+      cardgatePaymentMethodId:
+        format: int32
+        type: integer
+      cardgatePaymentIssuerId:
+        format: int32
+        type: integer
+      name:
+        type: string
+      creditCard:
+        type: string
+      expiration:
+        type: string
+      cvv:
+        type: string
+      creditCardBrand:
+        type: string
+      cardId:
+        format: uuid
+        type: string
+        example: 00000000-0000-0000-0000-000000000000
+  PlaceOrderAddressSaveViewModel:
+    type: object
+    properties:
+      id:
+        format: int32
+        type: integer
+      firstName:
+        type: string
+      middleName:
+        type: string
+      lastName:
+        type: string
+      address1:
+        type: string
+      address2:
+        type: string
+      city:
+        type: string
+      zipCode:
+        type: string
+      state:
+        type: string
+      countryCode:
+        type: string
+      phoneNumber:
+        type: string
+  PlaceOrderAnalyticsViewModel:
+    type: object
+    properties:
+      referringUrl:
+        type: string
+      landingUrl:
+        type: string
+      browser:
+        type: string
+      os:
+        type: string
+      screenResolution:
+        type: string
+      device:
+        type: string
+  PlaceOrderAnalyticsBase64ViewModel:
+    type: object
+    properties:
+      referringUrl:
+        type: string
+      landingUrl:
+        type: string
+      userStringData64:
+        type: string
+  PlaceOrderFraudSaveViewModel:
+    type: object
+    properties:
+      sessionId:
+        type: string
+  PlaceOrderCallCenterSaveViewModel:
+    type: object
+    properties:
+      callCenterId:
+        format: int32
+        type: integer
+      representativeName:
+        type: string
+  PlaceOrderSaveResponseViewModel:
+    type: object
+    properties:
+      success:
+        type: boolean
+      descriptor:
+        type: string
+      message:
+        type: string
+      orderNumber:
+        type: string
+      callBackUrl:
+        type: string
+      trackingNumber:
+        type: string
+      cardId:
+        format: uuid
+        type: string
+        example: 00000000-0000-0000-0000-000000000000
+      customerResult:
+        $ref: '#/definitions/PlaceOrderCustomerInfoViewModel'
+      paymentContinueResult:
+        $ref: '#/definitions/PlaceOrderPaymentContinueResultViewModel'
+      customerVerified:
+        $ref: '#/definitions/PlaceOrderCustomerVerifiedResponseViewModel'
+      funnelBox:
+        $ref: '#/definitions/SecondaryOrderSaveResponseViewModel'
+      miniUpsell:
+        $ref: '#/definitions/SecondaryOrderSaveResponseViewModel'
+      campaignTrackings:
+        type: array
+        items:
+          $ref: '#/definitions/PlaceOrderCampaignTrackingSaveResponseViewModel'
+      upsellTrackings:
+        type: array
+        items:
+          $ref: '#/definitions/PlaceOrderUpsellTrackingSaveResponseViewModel'
+      upsells:
+        type: array
+        items:
+          $ref: '#/definitions/CampaignUpsellViewModel'
+  PlaceOrderCustomerInfoViewModel:
+    type: object
+    properties:
+      shippingAddressId:
+        format: int32
+        type: integer
+      billingAddressId:
+        format: int32
+        type: integer
+      customerId:
+        format: int32
+        type: integer
+  PlaceOrderPaymentContinueResultViewModel:
+    type: object
+    properties:
+      actionUrl:
+        type: string
+      items:
+        type: array
+        items:
+          $ref: '#/definitions/KeyValuePair[String,String]'
+  PlaceOrderCustomerVerifiedResponseViewModel:
+    type: object
+    properties:
+      emailVerified:
+        type: boolean
+      shippingAddressVerified:
+        type: boolean
+      billingAddressVerified:
+        type: boolean
+      suggestedAddress:
+        $ref: '#/definitions/PlaceOrderCustomerSuggestionResponseViewModel'
+  SecondaryOrderSaveResponseViewModel:
+    type: object
+    properties:
+      success:
+        type: boolean
+      message:
+        type: string
+      orderNumber:
+        type: string
+      descriptor:
+        type: string
+      paymentContinueResult:
+        $ref: '#/definitions/PlaceOrderPaymentContinueResultViewModel'
+  PlaceOrderCampaignTrackingSaveResponseViewModel:
+    type: object
+    properties:
+      isPostBackActive:
+        type: boolean
+      tracker:
+        type: string
+      pixelUrl:
+        type: string
+      fullPixelUrl:
+        type: string
+  PlaceOrderUpsellTrackingSaveResponseViewModel:
+    type: object
+    properties:
+      tracker:
+        type: string
+      campaignUpsellWebKey:
+        format: uuid
+        type: string
+        example: 00000000-0000-0000-0000-000000000000
+      campaignUpsellUrl:
+        type: string
+      convertionPixelUrl:
+        type: string
+      fullConvertionPixelUrl:
+        type: string
+      clickPixelUrl:
+        type: string
+      fullClickPixelUrl:
+        type: string
+  CampaignUpsellViewModel:
+    type: object
+    properties:
+      id:
+        format: int32
+        type: integer
+      linkedCampaignName:
+        type: string
+      linkedCampaignId:
+        format: int32
+        type: integer
+      upsellUrl:
+        type: string
+      index:
+        format: int32
+        type: integer
+  'KeyValuePair[String,String]':
+    type: object
+    properties:
+      key:
+        type: string
+        readOnly: true
+      value:
+        type: string
+        readOnly: true
+  PlaceOrderCustomerSuggestionResponseViewModel:
+    type: object
+    properties:
+      address1:
+        type: string
+      state:
+        type: string
+      city:
+        type: string
+      zipCode:
+        type: string
+      countryName:
+        type: string
+      countryCode:
+        type: string
+  PlaceOrderUpdateSaveViewModel:
+    type: object
+    properties:
+      paymentProcessorId:
+        format: int32
+        type: integer
+      trackingCountryCode:
+        type: string
+      trackingLanguageCountryCode:
+        type: string
+  PlaceOrderUpsellReturnViewModel:
+    type: object
+    properties:
+      success:
+        type: boolean
+      orderNumber:
+        type: string
+      descriptor:
+        type: string
+      message:
+        type: string
+  CampaignProductSimpleListViewModel:
+    type: object
+    properties:
+      productId:
+        format: int32
+        type: integer
+      productName:
+        type: string
+      sku:
+        type: string
+      message:
+        type: string
+      warrantyTypeId:
+        format: int32
+        type: integer
+      warrantyPeriod:
+        format: int32
+        type: integer
+      quantity:
+        format: int32
+        type: integer
+      shippings:
+        type: array
+        items:
+          $ref: '#/definitions/CampaignProductShippingViewModel'
+      productPrices:
+        type: array
+        items:
+          $ref: '#/definitions/KeyValuePair[String,CampaignProductPriceViewModel]'
+  CampaignProductShippingViewModel:
+    type: object
+    properties:
+      shippingMethodId:
+        format: int32
+        type: integer
+      shippingName:
+        type: string
+      price:
+        format: double
+        type: number
+      formattedPrice:
+        type: string
+  'KeyValuePair[String,CampaignProductPriceViewModel]':
+    type: object
+    properties:
+      key:
+        type: string
+        readOnly: true
+      value:
+        $ref: '#/definitions/CampaignProductPriceViewModel'
+        readOnly: true
+  CampaignProductPriceViewModel:
+    type: object
+    properties:
+      type:
+        type: string
+      value:
+        format: double
+        type: number
+      formattedValue:
+        type: string
+      countryCode:
+        type: string
+      globalCurrencyCode:
+        type: string
+      isGlobalProductPrice:
+        type: boolean
+      isGlobalCampaignPrice:
+        type: boolean
+  CampaignProductListViewModel:
+    type: object
+    properties:
+      productId:
+        format: int32
+        type: integer
+      sku:
+        type: string
+      name:
+        type: string
+      imgUrlLg:
+        type: string
+      imgUrlSm:
+        type: string
+      imgUrlMd:
+        type: string
+      digitalProduct:
+        type: boolean
+      isPackage:
+        type: boolean
+      productPrices:
+        type: array
+        items:
+          $ref: '#/definitions/CampaignProductPriceViewModel'
+  CampaignProductViewModel:
+    type: object
+    properties:
+      id:
+        format: int32
+        type: integer
+      skuId:
+        type: string
+      name:
+        type: string
+      weight:
+        format: double
+        type: number
+      unitOfMeasure:
+        type: string
+      imgUrlLg:
+        type: string
+      imgUrlSm:
+        type: string
+      imgUrlMd:
+        type: string
+      warrantyTypeId:
+        format: int32
+        type: integer
+      warrantyPeriod:
+        format: int32
+        type: integer
+      digitalProduct:
+        type: boolean
+      isPackage:
+        type: boolean
+      productPrices:
+        type: array
+        items:
+          $ref: '#/definitions/CampaignProductPriceViewModel'
+      productPackages:
+        type: array
+        items:
+          $ref: '#/definitions/CampaignProductPackageViewModel'
+  CampaignProductPackageViewModel:
+    type: object
+    properties:
+      name:
+        type: string
+      skuId:
+        type: string
+      quantity:
+        format: double
+        type: number
+      imgUrlLg:
+        type: string
+      imgUrlSm:
+        type: string
+      imgUrlMd:
+        type: string
+      warrantyTypeId:
+        format: int32
+        type: integer
+      warrantyPeriod:
+        format: int32
+        type: integer
+      digitalProduct:
+        type: boolean
+  ShoppingCartCreateViewModel:
+    required:
+      - product
+    type: object
+    properties:
+      behaviorId:
+        format: int32
+        type: integer
+      customerIP:
+        type: string
+      product:
+        $ref: '#/definitions/ShoppingCartProductCreateViewModel'
+  ShoppingCartProductCreateViewModel:
+    required:
+      - productId
+      - quantity
+    type: object
+    properties:
+      productId:
+        format: int32
+        type: integer
+      price:
+        format: double
+        type: number
+      quantity:
+        format: int32
+        maximum: 50
+        minimum: 1
+        type: integer
+      shippingMethodId:
+        format: int32
+        type: integer
+  ShoppingCartPublicViewModel:
+    type: object
+    properties:
+      sessionId:
+        format: uuid
+        type: string
+        example: 00000000-0000-0000-0000-000000000000
+      cartNumber:
+        type: string
+      couponCode:
+        type: string
+      couponDescription:
+        type: string
+      products:
+        type: array
+        items:
+          $ref: '#/definitions/ShoppingCartProductPublicViewModel'
+  ShoppingCartProductPublicViewModel:
+    type: object
+    properties:
+      productId:
+        format: int32
+        type: integer
+      productName:
+        type: string
+      quantity:
+        format: int32
+        type: integer
+      shippingMethodId:
+        format: int32
+        type: integer
+      currencyCode:
+        type: string
+      price:
+        format: double
+        type: number
+      surcharge:
+        format: double
+        type: number
+      shippingPrice:
+        format: double
+        type: number
+  CheckoutRequest:
+    required:
+      - payment
+    type: object
+    properties:
+      sessionId:
+        format: uuid
+        type: string
+        example: 00000000-0000-0000-0000-000000000000
+      payment:
+        $ref: '#/definitions/PaymentDetails'
+      analytics:
+        $ref: '#/definitions/CheckoutAnalytics'
+      fraudSessionId:
+        type: string
+  PaymentDetails:
+    type: object
+    properties:
+      paymentProcessorId:
+        format: int32
+        type: integer
+      cardgatePaymentMethodId:
+        format: int32
+        type: integer
+      cardgatePaymentIssuerId:
+        format: int32
+        type: integer
+      name:
+        type: string
+      creditCard:
+        type: string
+      expiration:
+        type: string
+      cvv:
+        type: string
+      creditCardBrand:
+        type: string
+      cardId:
+        format: uuid
+        type: string
+        example: 00000000-0000-0000-0000-000000000000
+  CheckoutAnalytics:
+    type: object
+    properties:
+      referringUrl:
+        type: string
+      landingUrl:
+        type: string
+      browser:
+        type: string
+      os:
+        type: string
+      screenResolution:
+        type: string
+      device:
+        type: string
+  CheckoutResponse:
+    type: object
+    properties:
+      success:
+        type: boolean
+      message:
+        type: string
+      shoppingCartNumber:
+        type: string
+      callBackUrl:
+        type: string
+      trackingNumber:
+        type: string
+      descriptor:
+        type: string
+      paymentContinueResult:
+        $ref: '#/definitions/PaymentContinueResult'
+      customerVerification:
+        $ref: '#/definitions/CustomerVerification'
+      campaignTrackings:
+        type: array
+        items:
+          $ref: '#/definitions/CampaignTracking'
+  PaymentContinueResult:
+    type: object
+    properties:
+      actionUrl:
+        type: string
+      items:
+        type: array
+        items:
+          $ref: '#/definitions/KeyValuePair[String,String]'
+  CustomerVerification:
+    type: object
+    properties:
+      emailVerified:
+        type: boolean
+      shippingAddressVerified:
+        type: boolean
+      billingAddressVerified:
+        type: boolean
+  CampaignTracking:
+    type: object
+    properties:
+      isPostBackActive:
+        type: boolean
+      tracker:
+        type: string
+      pixelUrl:
+        type: string
+      fullPixelUrl:
+        type: string
+  ConfirmPaymentResponse:
+    type: object
+    properties:
+      success:
+        type: boolean
+      message:
+        type: string
+      firstName:
+        type: string
+      lastName:
+        type: string
+      middleName:
+        type: string
+      email:
+        type: string
+      address1:
+        type: string
+      address2:
+        type: string
+      city:
+        type: string
+      zipCode:
+        type: string
+      state:
+        type: string
+      country:
+        type: string
