@@ -70,7 +70,7 @@ info:
       
       <strong>Campaign Settings</strong>
       <ul>
-        <li>Select <strong>Default Language</strong> for the Campaign. Selected language will determine Email's sent to customers. For Example- Confimation Email for order purchase by customer from Websales website.</li>
+        <li>Select <strong>Default Language</strong> for the Campaign. Selected language will determine language for Emails sent to customers. For Example- Confimation Email for order purchase by customer from Websales website.</li>
         <li><strong>First Order Number</strong> text field would be the first Order Number of the first order placed using Campaign.</li>
         <li><strong>UNIQUE Prefix</strong> is required to be provided that will be prefixed with first order number as Order Number for all the placed orders.</li>
         <li><strong>First Payment Number</strong> text field would be the first payment Number of the order placed using Campaign.</li>
@@ -86,12 +86,14 @@ info:
       <strong>Email Settings</strong>
       <ul>
         <li><strong>Templates Options</strong> is set default to Individual Emails and can be changed to Bundle Emails by toggling either of the switch.</li>
-        <li>All Email Templates can be configured with same SMTP </li>
+        <li>Select a SMTP configuration from a dropdown <strong>Use same SMTP configuration for all templates</strong> to have same SMTP account for all Email Tempaltes. SMTP can also be configured individually for each Email Template by editing specific Email Template.</li>
+        <li>All Email Templates have default templates selected, Templates can be customised by editing respective Email Templates.</li>
+        <li>Customised Templates can also be imported from different Campaign with same Language by selecting a Campaign from <strong>Campaigns list of Customized Template with language English</strong> dropdown.</li>
       </ul>
       
-      <strong>Email Settings</strong>
+      <strong>Country Settings</strong>
       <ul>
-        <li><strong>Templates Options</strong> is set default to Individual Emails and can be changed to Bundle Emails by toggling either of the switch.</li>
+        <li></li>
       </ul>
 
     <hr/>
