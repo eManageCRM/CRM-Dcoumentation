@@ -255,6 +255,7 @@ paths:
           required: true
           type: string
           format: uuid
+          default: 449885f8-eb6d-4888-bd7d-2530f0ac1c9b
         - name: ip
           in: query
           required: false
@@ -286,6 +287,7 @@ paths:
           required: true
           type: string
           format: uuid
+          default: 449885f8-eb6d-4888-bd7d-2530f0ac1c9b
       responses:
         '200':
           description: OK
@@ -314,6 +316,7 @@ paths:
           required: true
           type: string
           format: uuid
+          default: 449885f8-eb6d-4888-bd7d-2530f0ac1c9b
         - name: countryCode
           in: query
           required: true
@@ -381,6 +384,7 @@ paths:
           required: true
           type: string
           format: uuid
+          default: 449885f8-eb6d-4888-bd7d-2530f0ac1c9b
       responses:
         '200':
           description: OK
@@ -434,6 +438,7 @@ paths:
           required: true
           type: string
           format: uuid
+          default: 449885f8-eb6d-4888-bd7d-2530f0ac1c9b
         - name: couponCode
           in: path
           required: true
@@ -468,6 +473,7 @@ paths:
           required: true
           type: string
           format: uuid
+          default: 449885f8-eb6d-4888-bd7d-2530f0ac1c9b
         - name: couponCode
           in: path
           required: true
@@ -633,6 +639,7 @@ paths:
           required: true
           type: string
           format: uuid
+          default: 449885f8-eb6d-4888-bd7d-2530f0ac1c9b
       responses:
         '200':
           description: OK
@@ -840,6 +847,7 @@ paths:
           required: true
           type: string
           format: uuid
+          default: 449885f8-eb6d-4888-bd7d-2530f0ac1c9b
       responses:
         '200':
           description: OK
