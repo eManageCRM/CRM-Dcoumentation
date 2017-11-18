@@ -96,6 +96,16 @@ info:
         <li>Select a country or multiple countries from <strong>Please Select a Country</strong> multi-select to create prices for individual countries or GLOBAL in <strong>Products</strong> in section below.</li>
         <li>More countries can be added to multi-select from <strong>Systems Settings</strong> menu in CRM.</li>
       </ul>
+      
+      <strong>Products</strong>
+      <ul>
+        <li>Adding products to the Campaign will be used in Websales APIs to show Products and Prices on website.</li>
+        <li>Select a product from <strong>Product Name</strong> dropdown, select <strong>Sale Type</strong> and <strong>Sales Model</strong> for selected product.</li>
+        <li>After adding a product to the list further configuration such as selecting <strong>Shipping Method</strong> and creating <strong>Prices</strong> can be done for respective products.</li>
+        <li>A Campaign can have multiple Products.</li>
+      </ul>
+      
+      
 
     <hr/>
     
@@ -133,54 +143,55 @@ host: emanage-dev-websales-api.azurewebsites.net
 schemes:
   - http
 paths:
-  /api/callback/onpex:
-    x-description: Call back to update payment proccessed by third party payment providers
-    get:
-      tags:
-        - Callback
-      operationId: Callback_Get
-      consumes: []
-      produces:
-        - application/json
-        - text/json
-        - application/xml
-        - text/xml
-      parameters:
-        - name: mcTxId
-          in: query
-          required: true
-          type: string
-      responses:
-        '200':
-          description: OK
-          schema:
-            $ref: '#/definitions/PlaceOrderUpdateReturnViewModel'
-    post:
-      tags:
-        - Callback
-      operationId: Callback_Post
-      consumes:
-        - application/json
-        - text/json
-        - application/xml
-        - text/xml
-        - application/x-www-form-urlencoded
-      produces:
-        - application/json
-        - text/json
-        - application/xml
-        - text/xml
-      parameters:
-        - name: model
-          in: body
-          required: true
-          schema:
-            $ref: '#/definitions/CallbackOnpex'
-      responses:
-        '200':
-          description: OK
-          schema:
-            type: object
+  # /api/callback/onpex:
+  #   x-description: Call back to update payment proccessed by third party payment providers
+  #   get:
+  #     summary: Update third party payment
+  #     tags:
+  #       - Callback
+  #     operationId: Callback_Get
+  #     consumes: []
+  #     produces:
+  #       - application/json
+  #       - text/json
+  #       - application/xml
+  #       - text/xml
+  #     parameters:
+  #       - name: mcTxId
+  #         in: query
+  #         required: true
+  #         type: string
+  #     responses:
+  #       '200':
+  #         description: OK
+  #         schema:
+  #           $ref: '#/definitions/PlaceOrderUpdateReturnViewModel'
+  #   post:
+  #     tags:
+  #       - Callback
+  #     operationId: Callback_Post
+  #     consumes:
+  #       - application/json
+  #       - text/json
+  #       - application/xml
+  #       - text/xml
+  #       - application/x-www-form-urlencoded
+  #     produces:
+  #       - application/json
+  #       - text/json
+  #       - application/xml
+  #       - text/xml
+  #     parameters:
+  #       - name: model
+  #         in: body
+  #         required: true
+  #         schema:
+  #           $ref: '#/definitions/CallbackOnpex'
+  #     responses:
+  #       '200':
+  #         description: OK
+  #         schema:
+  #           type: object
   /api/callback/aftership:
     x-summary: Aftership
     x-description: |
@@ -238,33 +249,32 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/CampaignSettingsViewModel'
-  '/api/campaigns/{webkey}/mid':
-    get:
-      tags:
-        - Campaigns
-      operationId: Campaigns_GetMidAvailability
-      consumes: []
-      produces:
-        - application/json
-        - text/json
-        - application/xml
-        - text/xml
-      parameters:
-        - name: webkey
-          in: path
-          required: true
-          type: string
-          format: uuid
-          default: 449885f8-eb6d-4888-bd7d-2530f0ac1c9b
-        - name: ip
-          in: query
-          required: false
-          type: string
-      responses:
-        '200':
-          description: OK
-          schema:
-            type: boolean
+  # '/api/campaigns/{webkey}/mid':
+  #   get:
+  #     tags:
+  #       - Campaigns
+  #     operationId: Campaigns_GetMidAvailability
+  #     consumes: []
+  #     produces:
+  #       - application/json
+  #       - text/json
+  #       - application/xml
+  #       - text/xml
+  #     parameters:
+  #       - name: webkey
+  #         in: path
+  #         required: true
+  #         type: string
+  #         format: uuid
+  #       - name: ip
+  #         in: query
+  #         required: false
+  #         type: string
+  #     responses:
+  #       '200':
+  #         description: OK
+  #         schema:
+  #           type: boolean
   '/api/campaigns/{webkey}/countries':
     x-summary: Countries
     x-description: |
@@ -287,7 +297,6 @@ paths:
           required: true
           type: string
           format: uuid
-          default: 449885f8-eb6d-4888-bd7d-2530f0ac1c9b
       responses:
         '200':
           description: OK
@@ -316,7 +325,6 @@ paths:
           required: true
           type: string
           format: uuid
-          default: 449885f8-eb6d-4888-bd7d-2530f0ac1c9b
         - name: countryCode
           in: query
           required: true
@@ -330,38 +338,38 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/CampaignCountryStateViewModel'
-  '/api/campaigns/{webkey}/affiliate':
-    post:
-      tags:
-        - Campaigns
-      operationId: Campaigns_Post
-      consumes:
-        - application/json
-        - text/json
-        - application/xml
-        - text/xml
-        - application/x-www-form-urlencoded
-      produces:
-        - application/json
-        - text/json
-        - application/xml
-        - text/xml
-      parameters:
-        - name: webkey
-          in: path
-          required: true
-          type: string
-          format: uuid
-        - name: model
-          in: body
-          required: true
-          schema:
-            $ref: '#/definitions/CampaignAffiliateSaveViewModel'
-      responses:
-        '200':
-          description: OK
-          schema:
-            type: object
+  # '/api/campaigns/{webkey}/affiliate':
+  #   post:
+  #     tags:
+  #       - Campaigns
+  #     operationId: Campaigns_Post
+  #     consumes:
+  #       - application/json
+  #       - text/json
+  #       - application/xml
+  #       - text/xml
+  #       - application/x-www-form-urlencoded
+  #     produces:
+  #       - application/json
+  #       - text/json
+  #       - application/xml
+  #       - text/xml
+  #     parameters:
+  #       - name: webkey
+  #         in: path
+  #         required: true
+  #         type: string
+  #         format: uuid
+  #       - name: model
+  #         in: body
+  #         required: true
+  #         schema:
+  #           $ref: '#/definitions/CampaignAffiliateSaveViewModel'
+  #     responses:
+  #       '200':
+  #         description: OK
+  #         schema:
+  #           type: object
   '/api/campaigns/{webkey}/upsells':
     x-summary: Upsells
     x-description: |
@@ -384,7 +392,6 @@ paths:
           required: true
           type: string
           format: uuid
-          default: 449885f8-eb6d-4888-bd7d-2530f0ac1c9b
       responses:
         '200':
           description: OK
@@ -438,7 +445,6 @@ paths:
           required: true
           type: string
           format: uuid
-          default: 449885f8-eb6d-4888-bd7d-2530f0ac1c9b
         - name: couponCode
           in: path
           required: true
@@ -473,7 +479,6 @@ paths:
           required: true
           type: string
           format: uuid
-          default: 449885f8-eb6d-4888-bd7d-2530f0ac1c9b
         - name: couponCode
           in: path
           required: true
@@ -497,35 +502,38 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/CampaignCouponCalculatedViewModel'
-  '/api/customers/export/{datini}/{datend}':
-    get:
-      tags:
-        - Customers
-      operationId: Customers_Get
-      consumes: []
-      produces:
-        - application/json
-        - text/json
-        - application/xml
-        - text/xml
-      parameters:
-        - name: datini
-          in: path
-          required: true
-          type: string
-          format: date-time
-        - name: datend
-          in: path
-          required: true
-          type: string
-          format: date-time
-      responses:
-        '200':
-          description: OK
-          schema:
-            $ref: '#/definitions/ExportCustomerViewModel'
+  # '/api/customers/export/{datini}/{datend}':
+  #   get:
+  #     tags:
+  #       - Customers
+  #     operationId: Customers_Get
+  #     consumes: []
+  #     produces:
+  #       - application/json
+  #       - text/json
+  #       - application/xml
+  #       - text/xml
+  #     parameters:
+  #       - name: datini
+  #         in: path
+  #         required: true
+  #         type: string
+  #         format: date-time
+  #       - name: datend
+  #         in: path
+  #         required: true
+  #         type: string
+  #         format: date-time
+  #     responses:
+  #       '200':
+  #         description: OK
+  #         schema:
+  #           $ref: '#/definitions/ExportCustomerViewModel'
   /api/customers:
+    x-summary: Get Customer
+    x-description: Get Customer's Shipping and Billing address(s).
     get:
+      summary: Get existing Customer
       tags:
         - Customers
       operationId: Customers_Get
@@ -639,65 +647,64 @@ paths:
           required: true
           type: string
           format: uuid
-          default: 449885f8-eb6d-4888-bd7d-2530f0ac1c9b
       responses:
         '200':
           description: OK
           schema:
             $ref: '#/definitions/CustomerLocationViewModel'
-  /api/files/download:
-    get:
-      tags:
-        - Files
-      operationId: Files_Get
-      consumes: []
-      produces:
-        - application/json
-        - text/json
-        - application/xml
-        - text/xml
-      parameters:
-        - name: key
-          in: query
-          required: true
-          type: string
-        - name: id
-          in: query
-          required: true
-          type: integer
-          format: int32
-      responses:
-        '200':
-          description: OK
-          schema:
-            type: object
-  /api/fraudprevention:
-    post:
-      tags:
-        - FraudPrevention
-      operationId: FraudPrevention_Post
-      consumes:
-        - application/json
-        - text/json
-        - application/xml
-        - text/xml
-        - application/x-www-form-urlencoded
-      produces:
-        - application/json
-        - text/json
-        - application/xml
-        - text/xml
-      parameters:
-        - name: transaction
-          in: body
-          required: true
-          schema:
-            $ref: '#/definitions/FraudAnalysisTransaction'
-      responses:
-        '200':
-          description: OK
-          schema:
-            $ref: '#/definitions/FraudAnalysisResponse'
+  # /api/files/download:
+  #   get:
+  #     tags:
+  #       - Files
+  #     operationId: Files_Get
+  #     consumes: []
+  #     produces:
+  #       - application/json
+  #       - text/json
+  #       - application/xml
+  #       - text/xml
+  #     parameters:
+  #       - name: key
+  #         in: query
+  #         required: true
+  #         type: string
+  #       - name: id
+  #         in: query
+  #         required: true
+  #         type: integer
+  #         format: int32
+  #     responses:
+  #       '200':
+  #         description: OK
+  #         schema:
+  #           type: object
+  # /api/fraudprevention:
+  #   post:
+  #     tags:
+  #       - FraudPrevention
+  #     operationId: FraudPrevention_Post
+  #     consumes:
+  #       - application/json
+  #       - text/json
+  #       - application/xml
+  #       - text/xml
+  #       - application/x-www-form-urlencoded
+  #     produces:
+  #       - application/json
+  #       - text/json
+  #       - application/xml
+  #       - text/xml
+  #     parameters:
+  #       - name: transaction
+  #         in: body
+  #         required: true
+  #         schema:
+  #           $ref: '#/definitions/FraudAnalysisTransaction'
+  #     responses:
+  #       '200':
+  #         description: OK
+  #         schema:
+  #           $ref: '#/definitions/FraudAnalysisResponse'
   '/api/orders/{webkey}':
     x-summary: Main campaign
     x-description: |
@@ -783,27 +790,27 @@ paths:
               description: OK
               schema:
                 $ref: '#/definitions/PlaceOrderUpdateReturnViewModel'            
-  '/api/orders/upsell/{orderNumber}':
-    post:
-      tags:
-        - Orders
-      operationId: Orders_Post
-      consumes: []
-      produces:
-        - application/json
-        - text/json
-        - application/xml
-        - text/xml
-      parameters:
-        - name: orderNumber
-          in: path
-          required: true
-          type: string
-      responses:
-        '200':
-          description: OK
-          schema:
-            $ref: '#/definitions/PlaceOrderUpsellReturnViewModel'
+  # '/api/orders/upsell/{orderNumber}':
+  #   post:
+  #     tags:
+  #       - Orders
+  #     operationId: Orders_Post
+  #     consumes: []
+  #     produces:
+  #       - application/json
+  #       - text/json
+  #       - application/xml
+  #       - text/xml
+  #     parameters:
+  #       - name: orderNumber
+  #         in: path
+  #         required: true
+  #         type: string
+  #     responses:
+  #       '200':
+  #         description: OK
+  #         schema:
+  #           $ref: '#/definitions/PlaceOrderUpsellReturnViewModel'
   '/api/payments/transactions/{orderNumber}':
     x-summary: Payments
     x-description: Used to verify the status of the payment transaction
@@ -847,7 +854,6 @@ paths:
           required: true
           type: string
           format: uuid
-          default: 449885f8-eb6d-4888-bd7d-2530f0ac1c9b
       responses:
         '200':
           description: OK
