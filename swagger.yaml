@@ -118,11 +118,12 @@ info:
     <p>Schema page by page</p>
     <img src='https://i.ytimg.com/vi/w6DW4i-mfbA/hqdefault.jpg'/>
     
-    ##Initial data
+    ##Landing Page
       
-      Usually first visited page of our website is landing page. This is where we typical use <a href="#reference/customers/customer-location" >customer location</a> api.
+      Landing page is an introduction to the product(s). Customer geolocation info by using Websales API <a href="#reference/customers/customer-location" >CUSTOMER LOCATION</a> can be fetched on Landing page.
+      Getting customers Analytics information can also be obtained on Landing page. Please check documentation about Analytics type data/object.
     
-    ##Products
+    ##Main/Order Page
       
       Next step is order page. This is where we display <a href="#reference/products/prices">a list of products</a>. The prices can be dynamicaly recalculated with <a href="#reference/coupons/apply-coupon">a coupon code</a>.
       
@@ -131,8 +132,11 @@ info:
       Order form can be dynamically created with <a href="#reference/campaigns/countries">a list of countries</a> and <a href="#reference/campaigns/states">states</a>.
       We suggest to preselect country option with a customer's country, based on <a href="#reference/customers/customer-location">their location</a>. List of states/provinces can be updated dynamically each time customer change the country.
     
-    ##Upsells
-    ##Confirmation
+    ##Mini Upsell(s) Page(Optional)
+    
+    ##Upsell(s) Page(Optional)
+    
+    ##Confirmation Page
     
     
 host: emanage-dev-websales-api.azurewebsites.net
