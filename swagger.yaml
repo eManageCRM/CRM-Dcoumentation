@@ -1012,11 +1012,10 @@ paths:
           schema:
             $ref: '#/definitions/CampaignProductShippingViewModel'
   '/api/shoppingcart/{webkey}/new':
-    x-summary: Shopping cart
-    x-description: |
-      Create new shopping cart
+    x-summary: Create Shopping cart
+    x-description: Create a new Shopping cart.
     post:
-      summary: Create shopping cart
+      summary: Create Shopping cart
       tags:
         - ShoppingCart
       operationId: ShoppingCart_CreateAsync
@@ -1050,7 +1049,10 @@ paths:
             type: string
             example: 00000000-0000-0000-0000-000000000000
   '/api/shoppingcart/{webkey}':
+    x-summary: Get Shopping cart
+    x-description: Get existing Shopping cart for returning customer.
     get:
+      summary: Get Shopping cart
       tags:
         - ShoppingCart
       operationId: ShoppingCart_GetShoppingCart
@@ -1077,7 +1079,10 @@ paths:
           schema:
             $ref: '#/definitions/ShoppingCartPublicViewModel'
   '/api/shoppingcart/{webkey}/checkout':
+    x-summary: Shopping cart checkout
+    x-description: A post request to complete checkout.
     post:
+      summary: Shopping cart checkout
       tags:
         - ShoppingCart
       operationId: ShoppingCart_CheckoutAsync
@@ -1109,7 +1114,10 @@ paths:
           schema:
             $ref: '#/definitions/CheckoutResponse'
   '/api/shoppingcart/{webkey}/confirmpayment':
+    x-summary: Confirm third party payments
+    x-description: A confirmation API call to confirm customers return from third party payment providers. This proccess is scheduled to run in CRM, hence this API is not mandatory. But to have cutomers order proccessed right away use this API.
     post:
+      summary: Confirm payments
       tags:
         - ShoppingCart
       operationId: ShoppingCart_ConfirmPaymentAsync
@@ -1140,7 +1148,10 @@ paths:
           schema:
             $ref: '#/definitions/ConfirmPaymentResponse'
   '/api/shoppingcart/{webkey}/applycoupon':
+    x-summary: Apply Coupon to Shopping cart
+    x-description: An API to apply coupon pricing set in CRM to all the products added to a Shopping cart. Coupon won't be applied to a product added after coupon is applied to already existing products in Shopping cart.
     post:
+      summary: Apply Coupon
       tags:
         - ShoppingCart
       operationId: ShoppingCart_ApplyCouponAsync
@@ -1171,7 +1182,10 @@ paths:
           schema:
             $ref: '#/definitions/ShoppingCartPublicViewModel'
   '/api/shoppingcart/{webkey}/customers/new':
+    x-summary: Create new Customer
+    x-description: Create a new Customer
     post:
+      summary: Create Customer
       tags:
         - ShoppingCart
       operationId: ShoppingCart_CreateCustomerAccountAsync
@@ -1208,7 +1222,10 @@ paths:
           schema:
             type: object
   '/api/shoppingcart/{webkey}/add':
+    x-summary: Add to existing Shopping cart
+    x-description: To add a product to existing Shopping cart use this API
     post:
+      summary: Add product
       tags:
         - ShoppingCart
       operationId: ShoppingCart_AddProduct
@@ -1245,7 +1262,10 @@ paths:
           schema:
             type: object
   '/api/shoppingcart/{webkey}/remove':
+    x-summary: Remove product from Shopping cart
+    x-description: To remove a product from a shopping cart use this API.
     delete:
+      summary: Remove product
       tags:
         - ShoppingCart
       operationId: ShoppingCart_RemoveProduct
@@ -1277,7 +1297,10 @@ paths:
           schema:
             type: object
   '/api/shoppingcart/{webkey}/update':
+    x-summary: Update product quantity
+    x-description: This API is used to update quantity of an existing product in Shopping cart
     put:
+      summary: Update quantity of existing product in Shopping cart
       tags:
         - ShoppingCart
       operationId: ShoppingCart_UpdateQuantity
@@ -1314,7 +1337,10 @@ paths:
           schema:
             type: object
   '/api/shoppingcart/{webkey}/shippingmethod':
+    x-summary: Select Shipping Method
+    x-description: Add a Shipping method to a product in Shopping cart.
     put:
+      summary: Add Shipping Method
       tags:
         - ShoppingCart
       operationId: ShoppingCart_SetShippingMethod
