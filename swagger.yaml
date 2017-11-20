@@ -118,10 +118,6 @@ info:
     <p>Schema page by page</p>
     <img src='https://i.ytimg.com/vi/w6DW4i-mfbA/hqdefault.jpg'/>
     
-    ##eCRM settings
-      
-      Before APIs can be used you need to have a campaign up and running. There should be products with prices and countries selected. Campaign status should be "Active with Traffic". Once campaign is ready we need to copy the webkey to our website api.
-    
     ##Initial data
       
       Usually first visited page of our website is landing page. This is where we typical use <a href="#reference/customers/customer-location" >customer location</a> api.
@@ -790,27 +786,30 @@ paths:
               description: OK
               schema:
                 $ref: '#/definitions/PlaceOrderUpdateReturnViewModel'            
-  # '/api/orders/upsell/{orderNumber}':
-  #   post:
-  #     tags:
-  #       - Orders
-  #     operationId: Orders_Post
-  #     consumes: []
-  #     produces:
-  #       - application/json
-  #       - text/json
-  #       - application/xml
-  #       - text/xml
-  #     parameters:
-  #       - name: orderNumber
-  #         in: path
-  #         required: true
-  #         type: string
-  #     responses:
-  #       '200':
-  #         description: OK
-  #         schema:
-  #           $ref: '#/definitions/PlaceOrderUpsellReturnViewModel'
+  '/api/orders/upsell/{orderNumber}':
+    x-summary: Get purchased Order's Upsells
+    x-description: This API is for call center sale use. CSR's can get upsells related to existing purchased Order in "Upsell Sale" sub-menu under "Customer Service" menu in CRM.
+    post:
+      summary: Get list of Upsells
+      tags:
+        - Orders
+      operationId: Orders_Post
+      consumes: []
+      produces:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+      parameters:
+        - name: orderNumber
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/PlaceOrderUpsellReturnViewModel'
   '/api/payments/transactions/{orderNumber}':
     x-summary: Payments
     x-description: Used to verify the status of the payment transaction
