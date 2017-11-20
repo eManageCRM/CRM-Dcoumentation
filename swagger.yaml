@@ -860,6 +860,8 @@ paths:
           schema:
             $ref: '#/definitions/CampaignProductSimpleListViewModel'
   '/api/campaigns/{webkey}/products/prices/{countryCode}':
+    x-summary: Get Product prices based on Country Code
+    x-Description: Get the Product prices based on specified Country code.
     get:
       summary: Get product prices (with country code)
       tags:
@@ -888,7 +890,9 @@ paths:
             $ref: '#/definitions/CampaignProductSimpleListViewModel'
   '/api/campaigns/{webkey}/products/{productId}/miniupsells':
     x-summary: Mini upsells
+    x-description: Get details about Mini upsell related to a Product
     get:
+      summary: Get Mini Upsells for Product
       tags:
         - Products
       operationId: Products_GetCampaignMiniUpsellsByCountry
@@ -915,7 +919,10 @@ paths:
           schema:
             $ref: '#/definitions/CampaignProductListViewModel'
   '/api/campaigns/{webkey}/products/{productId}/miniupsells/{countryCode}':
+    x-summary: Get Mini upsell for Product
+    x-description: Get list of Mini upsells details/prices for a specific Product and Country code
     get:
+      summary: Get list of Mini upsells
       tags:
         - Products
       operationId: Products_GetCampaignMiniUpsells
@@ -946,7 +953,10 @@ paths:
           schema:
             $ref: '#/definitions/CampaignProductSimpleListViewModel'
   '/api/campaigns/{webkey}/products/{productId}/{countryCode}':
+    x-summary: Get Product details
+    x-description: Get Product details such as Product name, weight, image, and etc...
     get:
+      summary: Get Product Details
       tags:
         - Products
       operationId: Products_GetCampaignProductById
@@ -977,7 +987,10 @@ paths:
           schema:
             $ref: '#/definitions/CampaignProductViewModel'
   '/api/campaigns/{webkey}/shippings/{productId}':
+    x-summary: Get list of Shipping Methods
+    x-description: Get list of Shipping Methods for specific Product
     get:
+      summary: Get Shipping Methods
       tags:
         - Products
       operationId: Products_GetCampaignShippings
