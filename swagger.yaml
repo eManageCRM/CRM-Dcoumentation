@@ -57,7 +57,7 @@ info:
     <hr/>
 
       To have Websales APIs working adequately, an active fully configured Campaign with status 'Active with Traffic' is required to be created in CRM. All the Websales APIs are based on CRM Campaign configurations.
-      To get successful HTTP requests back from Websales APIs Campaign configuration should meet minimum requirements. Please follow steps by step Campaign configuration for each section down below. 
+      To get successful HTTP requests back from Websales APIs Campaign configuration should meet minimum requirements. Please follow step by step Campaign configuration for each section down below. 
       
       ### Creating an intrinsic Campaign in CRM
       
@@ -82,6 +82,8 @@ info:
       <ul>
         <li>To use Websales API a <strong>UNIQUE</strong> Campaign Web Key is required. By clicking on <strong>Generate Web Key</strong> a unique key can be generated.</li>
       </ul>
+      
+      <img src='https://s3.amazonaws.com/emanage-analytics/webkey.png' alt='api_browser_schema'  />
       
       <strong>Email Settings</strong>
       <ul>
@@ -109,34 +111,65 @@ info:
 
     <hr/>
     
-    Most of the API urls have three parts - [domain][webkey][query]. Domain name usually match this pattern emanage-{your_company}-websales-api.azurewebsites.net/api. If you don't know your domain name, please contact our <a href="mailto:someone@example.com"> support </a>.
-    
-    <br/>
-    
-    Webkey is unique for every campaign and can be found in eCRM Campaign Management - Settings - {campaign} - Webkey section. Webkey looks like a generated five parts number 00000000-0000-0000-0000-000000000000. Using a specific domain and webkey we can use all the endpoints described in this documentation.
-
-    <p>Schema page by page</p>
-    <img src='https://i.ytimg.com/vi/w6DW4i-mfbA/hqdefault.jpg'/>
+    <img src='https://s3.amazonaws.com/emanage-analytics/schema_tr.png' alt='api_browser_schema' />
     
     ##Landing Page
       
-      Landing page is an introduction to the product(s). Customer geolocation info by using Websales API <a href="#reference/customers/customer-location" >CUSTOMER LOCATION</a> can be fetched on Landing page.
-      Getting customers Analytics information can also be obtained on Landing page. Please check documentation about Analytics type data/object.
-    
-    ##Main/Order Page
+      <p> Landing page is an introduction to the product(s). Customer geolocation information by using Websales API <a href="#reference/customers/customer-location" >CUSTOMER LOCATION</a> can be fetched on Landing page. </p>
       
-      Next step is order page. This is where we display <a href="#reference/products/prices">a list of products</a>. The prices can be dynamicaly recalculated with <a href="#reference/coupons/apply-coupon">a coupon code</a>.
-      
-    ##Placing an order
+      <p> Getting customers Analytics information can also be obtained on Landing page. Please check documentation about Analytics type data/object. </p>
     
-      Order form can be dynamically created with <a href="#reference/campaigns/countries">a list of countries</a> and <a href="#reference/campaigns/states">states</a>.
-      We suggest to preselect country option with a customer's country, based on <a href="#reference/customers/customer-location">their location</a>. List of states/provinces can be updated dynamically each time customer change the country.
+    ##Order/Main Page
+      
+      <p> Order/Main page is next page customers will go to. Order/Main page will have list of products. The list of products and product prices can be fetched using Websales API <a href="#reference/products/prices">GET PRODUCT PRICES</a>.</p>
+      
+      <p> Coupon configured in CRM Campaign can be applied to product(s) pricing on Main/Order Page.</p>
+      
+      <p> Order/Main page might also be the page where customers will pay for a selected product. Customers will be asked to fill a form providing thier address for billing and shipping. In the form customers have to select coutries and states.</p>
+      
+      <p> Websales API <a href="#reference/campaigns/countries">COUNTRIES LIST</a> is used to get the list of countries to have customers complete address information.</p>
+      
+      <p> <a href="#reference/campaigns/states">COUNTRY STATES LIST</a> API can be used to get states for selected country by customers. After completely filling the form to place an order, customers can be opted to choose from different payment methods.
+          Customers choosing from a different PAYMENT METHODS completely depends on CRM campaign configuration, the Website and is also <strong>OPTIONAL</strong>. 
+      </p>
+      
+      <p> Choosing a Credit card payment methods to pay for order, the Credit card payment method is fairly simple. Customers click on place order after selecting CREDIT CARD payment method. The <a href="#reference/orders/main-campaign/place-main-order">PLACE ORDER</a> 
+          API returns an object with information about placed order and "cardId" which will be used further purchases such as UPSELL(s) products in Website flow.
+      </p>
+      
+      <p> If a third party payment provider is configure in Campaign and also is an option on Website.</p>
+      
+      <p> Choosing a third party payment provider, the <a href="#reference/orders/main-campaign/place-main-order">PLACE ORDER</a> API returns a callback url where the customer should be redirected to complete the process.</p>
+      
+      <p> After customers finish payment process on third party payment provider website. The website will be redirected customers to <strong>SUCCESS URL</strong> configured in CRM campaign <strong>BASIC</strong> section with an 'ID' appended to url as a query string.</p>
+      
+      <p> This 'ID' query string is used to call <a href="#reference/payments/verify-payments">UPDATE PAYMENT</a> API to complete the payment process. </p>  
     
     ##Mini Upsell(s) Page(Optional)
+      
+      <p> Mini Upsell Page is optional and a mini upsell should be configured inside CRM campaign. Mini upsell is completely related to the Main/Order page product. Mini upsell can be configured respectively for each product in the list on Main/Order page. </p>
+      
+      <p> Mini Upsell order data must be placed within the Main/Order page products <a href="#reference/orders/main-campaign/place-main-order" >PLACE ORDER</a> API object. </p>
     
     ##Upsell(s) Page(Optional)
     
+      <p> Upsell(s) Page us an optional configuration from CRM campaign. If Upsell(s) is configured inside CRM campaign, a list of Upsell(s) can be extracted using <a href="#reference/campaigns/upsells/get-list-of-upsells">GET UPSELL(s) LIST</a> Websales API.</p>
+      
+      <p> In the UPSELL(s) list, a <strong>WEBKEY</strong> is returned with respective upsell. The <strong>WEBKEY</strong> will be used to GET list of products and prices for specific UPSELL. </p>
+      
+      <p> Upsell(s) can be developed as <i>one-click</i> purchase. If the Main/Order page product(s) were bought using Credit Card, "cardId" could be used to make Upsell product(s) purchase. </p>
+      
+      <p> If third party payment provider(s) were used for Main/Order page product(s) purchase customer could be redirected to thrid party payment provider Website. </p>
+      
+      <p> Upsell(s) product purchase uses same <a href="#reference/orders/main-campaign/place-main-order">PLACE ORDER</a> API. </p>
+    
     ##Confirmation Page
+    
+      <p> Confirmation Page should be the Last/Final page in the Website flow. All the purchased product(s) Order(s) information can be displayed to customers on this page. </p>
+      
+      <p> Customers can also have an option to update thier <strong>Shipping Address</strong> using <a href="#reference/customers/create-or-update/update-customer">UPDATE SHIPPING ADDRESS</a> Websales API.</p>
+      
+      <p> If the customers used third party payment provider to purchase product(s), an <strong>OPTIONAL</strong> <a href="#reference/payments/verify-payments">UPDATE PAYMENT</a> Websales API can also be called to complete the payment proccess.</p>
     
     
 host: emanage-dev-websales-api.azurewebsites.net
@@ -397,33 +430,33 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/CampaignUpsellItemViewModel'
-  /api/sofort/chargebacks:
-    post:
-      tags:
-        - Chargebacks
-      operationId: Chargebacks_Post
-      consumes:
-        - application/json
-        - text/json
-        - application/xml
-        - text/xml
-        - application/x-www-form-urlencoded
-      produces:
-        - application/json
-        - text/json
-        - application/xml
-        - text/xml
-      parameters:
-        - name: xml
-          in: body
-          required: true
-          schema:
-            $ref: '#/definitions/XElement'
-      responses:
-        '200':
-          description: OK
-          schema:
-            type: object
+  # /api/sofort/chargebacks:
+  #   post:
+  #     tags:
+  #       - Chargebacks
+  #     operationId: Chargebacks_Post
+  #     consumes:
+  #       - application/json
+  #       - text/json
+  #       - application/xml
+  #       - text/xml
+  #       - application/x-www-form-urlencoded
+  #     produces:
+  #       - application/json
+  #       - text/json
+  #       - application/xml
+  #       - text/xml
+  #     parameters:
+  #       - name: xml
+  #         in: body
+  #         required: true
+  #         schema:
+  #           $ref: '#/definitions/XElement'
+  #     responses:
+  #       '200':
+  #         description: OK
+  #         schema:
+  #           type: object
   '/api/campaigns/{webkey}/coupons/{couponCode}':
     x-summary: Settings
     x-description: |
