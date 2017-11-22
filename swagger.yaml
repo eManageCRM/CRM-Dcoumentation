@@ -115,7 +115,7 @@ info:
     
     ##Landing Page
       
-      <p> Landing page is an introduction to the product(s). Customer geolocation information by using Websales API <a href="#reference/customers/customer-location" >CUSTOMER LOCATION</a> can be fetched on Landing page. </p>
+      <p> Landing page is the very first interaction between the Customers and the Website. On this page Customer's geolocation information by using Websales <a href="#reference/customers/customer-location" >CUSTOMER LOCATION</a> API can be fetched. </p>
       
       <p> Getting customers Analytics information can also be obtained on Landing page. Please check documentation about Analytics type data/object. </p>
     
