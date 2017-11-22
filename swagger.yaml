@@ -115,41 +115,44 @@ info:
     
     ##Landing Page
       
-      <p> Landing page is the very first interaction between the Customers and the Website. On this page Customer's geolocation information by using Websales <a href="#reference/customers/customer-location" >CUSTOMER LOCATION</a> API can be fetched. </p>
+      <p> Landing page is where the very first interaction occurs between the Customers and the Website. On this page Customer's Geolocation by using Websales <a href="#reference/customers/customer-location" >CUSTOMER LOCATION</a> API can be fetched.</p>
       
-      <p> Getting customers Analytics information can also be obtained on Landing page. Please check documentation about Analytics type data/object. </p>
+      <p> Customer Geolocation information will be later used in the Website.</p>
+      
+      <p> Customers Analytics information could also be obtained on the Landing page. Please check Websale <a href="#reference/orders/main-campaign/place-main-order">PLACE ORDER</a> API to see what kind of Analytics type data/object is required. </p>
     
     ##Order/Main Page
       
-      <p> Order/Main page is next page customers will go to. Order/Main page will have list of products. The list of products and product prices can be fetched using Websales API <a href="#reference/products/prices">GET PRODUCT PRICES</a>.</p>
+      <p> Order/Main page is next page where customer goes to. Order/Main page will have list of products. The list of products and prices can be fetched using Websales <a href="#reference/products/prices">GET PRODUCT PRICES</a> API.</p>
       
       <p> Coupon configured in CRM Campaign can be applied to product(s) pricing on Main/Order Page.</p>
       
-      <p> Order/Main page might also be the page where customers will pay for a selected product. Customers will be asked to fill a form providing thier address for billing and shipping. In the form customers have to select coutries and states.</p>
+      <p> Order/Main page might also be the page where customer will pay for a selected product(s). Customer will be asked to fill a form providing thier address details for billing and shipping. In the form customer have to select coutries and states using dropdowns.</p>
       
-      <p> Websales API <a href="#reference/campaigns/countries">COUNTRIES LIST</a> is used to get the list of countries to have customers complete address information.</p>
+      <p> Websales <a href="#reference/campaigns/countries">COUNTRIES LIST</a> API is used to get the list of countries to have customer's complete address information.</p>
       
-      <p> <a href="#reference/campaigns/states">COUNTRY STATES LIST</a> API can be used to get states for selected country by customers. After completely filling the form to place an order, customers can be opted to choose from different payment methods.
-          Customers choosing from a different PAYMENT METHODS completely depends on CRM campaign configuration, the Website and is also <strong>OPTIONAL</strong>. 
+      <p> Websales <a href="#reference/campaigns/states">COUNTRY STATES LIST</a> API can be used to get states for selected country by customer. After completing the form to place an order, customer could be opted to choose from different payment methods.
+          Having customer to choose from different PAYMENT METHODS is <strong>OPTIONAL</strong>, completely depends on CRM campaign configuration and the Website. 
       </p>
       
-      <p> Choosing a Credit card payment methods to pay for order, the Credit card payment method is fairly simple. Customers click on place order after selecting CREDIT CARD payment method. The <a href="#reference/orders/main-campaign/place-main-order">PLACE ORDER</a> 
-          API returns an object with information about placed order and "cardId" which will be used further purchases such as UPSELL(s) products in Website flow.
+      <p> Choosing a Credit card payment method to pay for order is comparatively simple. Customer clicks on place order button after filling the form, selecting CREDIT CARD payment method and Websales 
+          <a href="#reference/orders/main-campaign/place-main-order">PLACE ORDER</a> API returns an object with information about placed order. 
+          PLACE ORDER API also returns a "CardId" which will be used further purchases such as UPSELL(s) product(s) in Website flow.
       </p>
       
-      <p> If a third party payment provider is configure in Campaign and also is an option on Website.</p>
+      <p> If a third party payment provider is configured in CRM Campaign and also developed as an option on Website. The Website flow differs and explained below.</p>
       
-      <p> Choosing a third party payment provider, the <a href="#reference/orders/main-campaign/place-main-order">PLACE ORDER</a> API returns a callback url where the customer should be redirected to complete the process.</p>
+      <p> Choosing a third party payment provider, the <a href="#reference/orders/main-campaign/place-main-order">PLACE ORDER</a> API returns a callback url where the customer should be redirected to the URL to complete the paying process.</p>
       
-      <p> After customers finish payment process on third party payment provider website. The website will be redirected customers to <strong>SUCCESS URL</strong> configured in CRM campaign <strong>BASIC</strong> section with an 'ID' appended to url as a query string.</p>
+      <p> After customers finish payment process on third party payment provider website. The payment provider website will redirect the customer to <strong>SUCCESS URL</strong> configured in CRM campaign <strong>BASIC</strong> section with an 'ID' appended to the <strong>SUCCESS URL</strong> as a query string.</p>
       
-      <p> This 'ID' query string is used to call <a href="#reference/payments/verify-payments">UPDATE PAYMENT</a> API to complete the payment process. </p>  
+      <p> This 'ID' appended as query string is used to call <a href="#reference/payments/verify-payments">UPDATE PAYMENT</a> API to complete the payment process. Please refer to <a href="#reference/payments/verify-payments">UPDATE PAYMENT</a> API for further information.</p>  
     
     ##Mini Upsell(s) Page(Optional)
       
       <p> Mini Upsell Page is optional and a mini upsell should be configured inside CRM campaign. Mini upsell is completely related to the Main/Order page product. Mini upsell can be configured respectively for each product in the list on Main/Order page. </p>
       
-      <p> Mini Upsell order data must be placed within the Main/Order page products <a href="#reference/orders/main-campaign/place-main-order" >PLACE ORDER</a> API object. </p>
+      <p> Mini Upsell order data must be placed within the Main/Order page products <a href="#reference/orders/main-campaign/place-main-order" >PLACE ORDER</a> API object. Please refer to <a href="#reference/orders/main-campaign/place-main-order" >PLACE ORDER</a> API for further information. </p>
     
     ##Upsell(s) Page(Optional)
     
