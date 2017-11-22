@@ -260,8 +260,8 @@ paths:
           schema:
             type: object
   '/api/campaigns/{webkey}/settings':
-    x-summary: Settings
-    x-description: Retrieve basic campaign information, such as campaign name and default language code.
+    x-summary: Campaign Settings
+    x-description: Retrieves basic campaign information, such as campaign name and default language code.
     get:
       summary: Get campaign settings
       tags:
@@ -312,7 +312,7 @@ paths:
   #         schema:
   #           type: boolean
   '/api/campaigns/{webkey}/countries':
-    x-summary: Countries
+    x-summary: Countries list
     x-description: |
       To place an order we need to have customers address. There are specific countries selected in the campaign and we need to have those countries listed on our website. Since we can have one website template for differen campaigns, we want the list of countries be dynamically populated in every instance of the website.
       This endpoint returns a list of countries selected in the campaign. Once retrieved the list can be used in the dropdown.
@@ -342,7 +342,7 @@ paths:
   '/api/campaigns/{webkey}/countrystates':
     x-summary: States
     x-description: |
-      Each country might have multiple states/provinces. We can also retrieve this data as soon as we have <a href="https://emanagecrm.docs.apiary.io/#reference/campaigns/apicampaignswebkeycountries">list of countries</a>. A good idea is to get provinces after customer selects country.
+      Each country might have multiple states/provinces. We can also retrieve this data as soon as we have <a href="https://emanagecrm.docs.apiary.io/#reference/campaigns/apicampaignswebkeycountries">list of countries</a>. A good practice would be to get states/provinces after customer selects a country.
       We already know how to get <a href="https://emanagecrm.docs.apiary.io/#reference/customers/apicampaignswebkeycustomerslocation">customer location</a>. So usually both country and states/provinces are going to be ready as soon as we get customer location.
     get:
       summary: Get list of states
@@ -374,43 +374,46 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/CampaignCountryStateViewModel'
-  # '/api/campaigns/{webkey}/affiliate':
-  #   post:
-  #     tags:
-  #       - Campaigns
-  #     operationId: Campaigns_Post
-  #     consumes:
-  #       - application/json
-  #       - text/json
-  #       - application/xml
-  #       - text/xml
-  #       - application/x-www-form-urlencoded
-  #     produces:
-  #       - application/json
-  #       - text/json
-  #       - application/xml
-  #       - text/xml
-  #     parameters:
-  #       - name: webkey
-  #         in: path
-  #         required: true
-  #         type: string
-  #         format: uuid
-  #       - name: model
-  #         in: body
-  #         required: true
-  #         schema:
-  #           $ref: '#/definitions/CampaignAffiliateSaveViewModel'
-  #     responses:
-  #       '200':
-  #         description: OK
-  #         schema:
-  #           type: object
+  '/api/campaigns/{webkey}/affiliate':
+    x-summary: Create New Affiliate
+    x-description: A website could have extra OPTIONAL page that would allow new affiliates to sign up to sell products. This API can help to achive such task.
+    post:
+      summary: Create Affiliate
+      tags:
+        - Campaigns
+      operationId: Campaigns_Post
+      consumes:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+        - text/json
+        - application/xml
+        - text/xml
+      parameters:
+        - name: webkey
+          in: path
+          required: true
+          type: string
+          format: uuid
+        - name: model
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/CampaignAffiliateSaveViewModel'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: object
   '/api/campaigns/{webkey}/upsells':
     x-summary: Upsells
     x-description: |
       After customer placed an order we can offer them upsells configured in the campaign.
-      The upsells api provides a list of upsells. Each upsell has its own campaign webkey and url. The new webkey can be used to retrieve all necessary data for the upsell offer and to place a new order.
+      The upsells api provides a list of upsells. Each upsell has its own campaign webkey and url. The new webkey can be used to retrieve all necessary data for the upsell offer and to purchase upsell products.
     get:
       summary: Get list of upsells
       tags:
@@ -461,9 +464,9 @@ paths:
   #         schema:
   #           type: object
   '/api/campaigns/{webkey}/coupons/{couponCode}':
-    x-summary: Settings
+    x-summary: Coupon Info
     x-description: |
-      ??? All the information for the coupon???
+      To get the Coupon behaviour such as 'if the coupon provides FREE SHIPPING' this API can be used. Please see the response object to check additional information provided by this API.
     get:
       summary: Get coupon details
       tags:
@@ -497,7 +500,7 @@ paths:
   '/api/campaigns/{webkey}/coupons/{couponCode}/calculate':
     x-summary: Apply coupon
     x-description: |
-      This endpoint can be used to calculate discounted prices based on coupon code, currency, product and shipping prices.
+      This API can be used to calculate discounted prices based on coupon code, currency, product and shipping prices.
     get:
       summary: Calculate prices
       tags:
@@ -567,7 +570,7 @@ paths:
   #           $ref: '#/definitions/ExportCustomerViewModel'
   /api/customers:
     x-summary: Get Customer
-    x-description: Get Customer's Shipping and Billing address(s).
+    x-description: Get Customer's information such as Email, Shipping and Billing address(s).
     get:
       summary: Get existing Customer
       tags:
@@ -590,9 +593,9 @@ paths:
           schema:
             $ref: '#/definitions/CustomerViewModel'
   '/api/customers/{webkey}':
-    x-summary: Create or update
+    x-summary: Create or Update
     x-description: |
-      Update customer information.
+      Create new or Update existing customer information.
     put:
       summary: Update customer
       tags:
@@ -742,11 +745,11 @@ paths:
   #         schema:
   #           $ref: '#/definitions/FraudAnalysisResponse'
   '/api/orders/{webkey}':
-    x-summary: Main campaign
+    x-summary: Place Order
     x-description: |
-      Order stuff
+      Place Order is on of the main API. It is used to make purchases by sending correct data. Please see the object below to see type of data needed to PLACE an ORDER.
     post:
-      summary: Place main order
+      summary: Place order/Purchase product.
       tags:
         - Orders
       operationId: Orders_Post
@@ -787,7 +790,7 @@ paths:
           schema:
             $ref: '#/definitions/PlaceOrderSaveResponseViewModel'
     put:
-          summary: Confirm payment with exteranl payment processor
+          summary: Confirm payment for the products purchase using third party payment providers.
           tags:
             - Orders
           operationId: Orders_Put
@@ -877,7 +880,7 @@ paths:
   '/api/campaigns/{webkey}/products/prices':
     x-summary: Prices
     get:
-      summary: Get product prices
+      summary: Get products and prices from a Campaign
       tags:
         - Products
       operationId: Products_GetCampaignProductPrices
