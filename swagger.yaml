@@ -6,9 +6,7 @@ info:
 
     #About
     <p>
-      The eManage CRM Web sales APIs are built on Hypertext Transfer Protocol (HTTP). eManage CRM provides RESTful APIs (Application Programming Interface) that lets you integrate CRM with your front end pages.
-      It has predictable resource URLs. It returns HTTP response codes to indicate errors. It also accepts and returns JSON in the HTTP body. You can use your favorite HTTP/REST library for your programming language to use the Web Sales API.
-      We’ll describe the basic work flow for setting up your new pages and integrating with the CRM. You’ll find the collection of Methods available below.
+      The eManage CRM Web Sales API is the port of entry of sales in the CRM. It's a HTTP-based API used to query campaign information such as product information and price sets, create customers, post new orders and some other tasks related to placing an order. This documentation describes the available end-points and their functionalities.
     </p>
 
     #Allowed HTTPs requests
@@ -107,12 +105,27 @@ info:
         <li>A Campaign can have multiple Products.</li>
       </ul>
       
-      
+    <table>
+    <tr>
+    <td align='center'>
+    <map name="api_schema_map"> 
+    <area href="#reference/customers/customer-location" shape=poly coords="215,35, 365,35, 365,65, 215,65">
+    <area href="#reference/products/prices/get-products-and-prices-from-a-campaign" shape=poly coords="120,175, 292,175, 292,196, 120,196">
+    <area href="#reference/campaigns/countries-list" shape=poly coords="120,196, 292,196, 292,224, 120,224">
+    <area href="#reference/coupons/apply-coupon" shape=poly coords="120,224, 292,224, 292,246, 120,246">
+    <area href="#reference/orders/place-order" shape=poly coords="157,311, 321,311, 321,363, 157,363">
+    <area href="#reference/products/prices/get-products-and-prices-from-a-campaign" shape=poly coords="124,438, 294,438, 294,463, 124,463">
+    <area href="#reference/coupons/apply-coupon" shape=poly coords=" 124,463, 294,463, 294,493, 124,493">
+    <area href="#reference/orders/place-order" shape=poly coords="159,572, 318,572, 318,620, 159,620">
+    <area href="#reference/customers/create-or-update" shape=poly coords="214,706, 370,706, 370,740, 214,740">
+    </map>
+    <center>
+    <img src="https://s3.amazonaws.com/emanage-analytics/docs/schema2_500.png" alt="CRM api schema" width=500 height=788 usemap="#api_schema_map" style="margin:0 auto">
+    </center>
+    </td>
+    </tr>
+    </table>
 
-    <hr/>
-    
-    <img src='https://s3.amazonaws.com/emanage-analytics/schema_tr.png' alt='api_browser_schema' />
-    
     ##Landing Page
       
       <p> Landing page is where the very first interaction occurs between the Customers and the Website. On this page Customer's Geolocation by using Websales <a href="#reference/customers/customer-location" >CUSTOMER LOCATION</a> API can be fetched.</p>
@@ -144,9 +157,9 @@ info:
       
       <p> Choosing a third party payment provider, the <a href="#reference/orders/main-campaign/place-main-order">PLACE ORDER</a> API returns a callback url where the customer should be redirected to the URL to complete the paying process.</p>
       
-      <p> After customers finish payment process on third party payment provider website. The payment provider website will redirect the customer to <strong>SUCCESS URL</strong> configured in CRM campaign <strong>BASIC</strong> section with an 'ID' appended to the <strong>SUCCESS URL</strong> as a query string.</p>
+      <p> After customers finish payment process on third party payment provider website. The payment provider website will redirect the customer to <strong>SUCCESS URL</strong> configured in CRM campaign <strong>BASIC</strong> section with an Tracking Number appended to the <strong>SUCCESS URL</strong> as a query string.</p>
       
-      <p> This 'ID' appended as query string is used to call <a href="#reference/payments/verify-payments">UPDATE PAYMENT</a> API to complete the payment process. Please refer to <a href="#reference/payments/verify-payments">UPDATE PAYMENT</a> API for further information.</p>  
+      <p> This Tracking Number appended as query string is used to call <a href="#reference/payments/verify-payments">UPDATE PAYMENT</a> API to complete the payment process. Please refer to <a href="#reference/payments/verify-payments">UPDATE PAYMENT</a> API for further information.</p>  
     
     ##Mini Upsell(s) Page(Optional)
       
@@ -314,7 +327,7 @@ paths:
   '/api/campaigns/{webkey}/countries':
     x-summary: Countries list
     x-description: |
-      To place an order we need to have customers address. There are specific countries selected in the campaign and we need to have those countries listed on our website. Since we can have one website template for differen campaigns, we want the list of countries be dynamically populated in every instance of the website.
+      To place an order we need to have customers address. There are specific countries selected in the campaign and we need to have those countries listed on our website. Since we can have one website template for different campaigns, we want the list of countries be dynamically populated in every instance of the website.
       This endpoint returns a list of countries selected in the campaign. Once retrieved the list can be used in the dropdown.
     get:
       summary: Get list of countries
