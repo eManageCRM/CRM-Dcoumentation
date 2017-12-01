@@ -6,7 +6,7 @@ info:
 
     #About
     <p>
-      The eManage CRM Web Sales API is the port of entry of sales in the CRM. It's a HTTP-based API used to query campaign information such as product information and price sets, create customers, post new orders and some other tasks related to placing an order. This documentation describes the available end-points and their functionalities.
+      The eManage CRM Web Sales API is the port of entry of sales in the CRM. It's an HTTP-based API used to query campaign information such as product information and price sets, create customers, post new orders and some other tasks related to placing an order. This documentation describes the available end-points and their functionalities.
     </p>
 
     #Allowed HTTPs requests
@@ -63,17 +63,17 @@ info:
       <ul>
         <li> Provide an adequate <strong>UNIQUE NAME</strong> for a Campaign in <strong>CRM</strong>.</li>
         <li> Select a <strong>STATUS</strong> from Campaign Status dropdown.</li>
-        <li> Select URL type to provide specfic <strong>URL</strong>s for redirecting Successful or Error payment transaction from thrid party payment providers. Required URL types- Landing, Success, Error and Upsell.</li>
+        <li> Select URL type to provide specific <strong>URL</strong>s for redirecting Successful or Error payment transaction from third-party payment providers. Required URL types- Landing, Success, Error and Upsell.</li>
       </ul>
       
       <strong>Campaign Settings</strong>
       <ul>
-        <li>Select <strong>Default Language</strong> for the Campaign. Selected language will determine language for Emails sent to customers. For Example- Confimation Email for order purchase by customer from Websales website.</li>
+        <li>Select <strong>Default Language</strong> for the Campaign. Selected language will determine a language for Emails sent to customers. For Example- Confimation Email for order purchase by the customer from Websales website.</li>
         <li><strong>First Order Number</strong> text field would be the first Order Number of the first order placed using Campaign.</li>
         <li><strong>UNIQUE Prefix</strong> is required to be provided that will be prefixed with first order number as Order Number for all the placed orders.</li>
         <li><strong>First Payment Number</strong> text field would be the first payment Number of the order placed using Campaign.</li>
         <li>Select a <strong>Ticket Mailbox</strong> to group Tickets of the Campaign for customer service.</li>
-        <li><strong>Clear Web Sales API Cache</strong>, To make Websales APIs load faster, Campaign data gets cached in Websales API user's region. If a change have been made to a Campaign with traffic and Websales API user is unable to see the changes. Campaign data cache can be cleared by clicking on this button.  </li>
+        <li><strong>Clear Web Sales API Cache</strong>, To make Websales APIs load faster, Campaign data gets cached in Websales API user's region. If a change has been made to a Campaign with traffic and Websales API user is unable to see the changes. Campaign data cache can be cleared by clicking on this button. <i>Only available for EXISTING Campaigns</i> </li>
       </ul>
       
       <strong>Web Key</strong>
@@ -85,22 +85,22 @@ info:
       
       <strong>Email Settings</strong>
       <ul>
-        <li><strong>Templates Options</strong> is set default to Individual Emails and can be changed to Bundle Emails by toggling either of the switch.</li>
-        <li>Select a SMTP configuration from a dropdown <strong>Use same SMTP configuration for all templates</strong> to have same SMTP account for all Email Tempaltes. SMTP can also be configured individually for each Email Template by editing specific Email Template.</li>
+        <li><strong>Templates Options</strong> is set by default to Individual Emails and can be changed to Bundle Emails by toggling either of the switches.</li>
+        <li>Select a SMTP configuration from a dropdown <strong>Use same SMTP configuration for all templates</strong> to have same SMTP account for all Email Templates. An SMTP can also be configured individually for each Email Template by editing specific Email Template.</li>
         <li>All Email Templates have default templates selected, Templates can be customized by editing respective Email Templates.</li>
         <li>Customized Templates can also be imported from different Campaigns by selecting a Campaign from <strong>Campaigns list of Customized Template with same language</strong> dropdown.</li>
       </ul>
       
       <strong>Country Settings</strong>
       <ul>
-        <li>Select a country or multiple countries from <strong>Please Select a Country</strong> multi-select to create prices for individual countries or GLOBAL in <strong>Products</strong> in section below.</li>
+        <li>Select a country or multiple countries from <strong>Please Select a Country</strong> multi-select to create prices for individual countries or GLOBAL in <strong>Products</strong> in a section below.</li>
         <li>More countries can be added to multi-select from <strong>Systems Settings</strong> menu in CRM.</li>
       </ul>
       
       <strong>Products</strong>
       <ul>
-        <li>Adding products to the Campaign will be used in Websales APIs to show Products and Prices on website.</li>
-        <li>Select a product from <strong>Product Name</strong> dropdown, select <strong>Sale Type</strong> and <strong>Sales Model</strong> for selected product.</li>
+        <li>Adding products to the Campaign will be used in Websales APIs to show Products and Prices on a website.</li>
+        <li>Select a product from <strong>Product Name</strong> dropdown, select <strong>Sale Type</strong> and <strong>Sales Model</strong> for the selected product.</li>
         <li>After adding a product to the list further configuration such as selecting <strong>Shipping Method</strong> and creating <strong>Prices</strong> can be done for respective products.</li>
         <li>A Campaign can have multiple Products.</li>
       </ul>
@@ -110,11 +110,11 @@ info:
     <td align='center'>
     <map name="api_schema_map"> 
     <area href="#reference/customers/customer-location" shape=poly coords="215,35, 365,35, 365,65, 215,65">
-    <area href="#reference/products/prices/get-products-and-prices-from-a-campaign" shape=poly coords="120,175, 292,175, 292,196, 120,196">
+    <area href="#reference/products/prices" shape=poly coords="120,175, 292,175, 292,196, 120,196">
     <area href="#reference/campaigns/countries-list" shape=poly coords="120,196, 292,196, 292,224, 120,224">
     <area href="#reference/coupons/apply-coupon" shape=poly coords="120,224, 292,224, 292,246, 120,246">
     <area href="#reference/orders/place-order" shape=poly coords="157,311, 321,311, 321,363, 157,363">
-    <area href="#reference/products/prices/get-products-and-prices-from-a-campaign" shape=poly coords="124,438, 294,438, 294,463, 124,463">
+    <area href="#reference/products/prices" shape=poly coords="124,438, 294,438, 294,463, 124,463">
     <area href="#reference/coupons/apply-coupon" shape=poly coords=" 124,463, 294,463, 294,493, 124,493">
     <area href="#reference/orders/place-order" shape=poly coords="159,572, 318,572, 318,620, 159,620">
     <area href="#reference/customers/create-or-update" shape=poly coords="214,706, 370,706, 370,740, 214,740">
@@ -128,36 +128,36 @@ info:
 
     ##Landing Page
       
-      <p> Landing page is where the very first interaction occurs between the Customers and the Website. On this page Customer's Geolocation by using Websales <a href="#reference/customers/customer-location" >CUSTOMER LOCATION</a> API can be fetched.</p>
+      <p> A landing page is where the very first interaction occurs between the Customers and the Website. On this page Customer's Geolocation by using Websales <a href="#reference/customers/customer-location" >CUSTOMER LOCATION</a> API can be fetched.</p>
       
-      <p> Customer Geolocation information will be later used in the Website.</p>
+      <p> Customer Geolocation information will be later used on the Website.</p>
       
       <p> Customers Analytics information could also be obtained on the Landing page. Please check Websale <a href="#reference/orders/main-campaign/place-main-order">PLACE ORDER</a> API to see what kind of Analytics type data/object is required. </p>
     
     ##Order/Main Page
       
-      <p> Order/Main page is next page where customer goes to. Order/Main page will have list of products. The list of products and prices can be fetched using Websales <a href="#reference/products/prices">GET PRODUCT PRICES</a> API.</p>
+      <p> Order/Main page is next page where a customer goes to. Order/Main page will have a list of products. The list of products and prices can be fetched using Websales <a href="#reference/products/prices">GET PRODUCT PRICES</a> API.</p>
       
       <p> Coupon configured in CRM Campaign can be applied to product(s) pricing on Main/Order Page.</p>
       
-      <p> Order/Main page might also be the page where customer will pay for a selected product(s). Customer will be asked to fill a form providing thier address details for billing and shipping. In the form customer have to select coutries and states using dropdowns.</p>
+      <p> Order/Main page might also be the page where the customer will pay for a selected product(s). Customer will be asked to fill a form providing their address details for billing and shipping. In the form customer have to select coutries and states using dropdowns.</p>
       
       <p> Websales <a href="#reference/campaigns/countries">COUNTRIES LIST</a> API is used to get the list of countries to have customer's complete address information.</p>
       
-      <p> Websales <a href="#reference/campaigns/states">COUNTRY STATES LIST</a> API can be used to get states for selected country by customer. After completing the form to place an order, customer could be opted to choose from different payment methods.
+      <p> Websales <a href="#reference/campaigns/states">COUNTRY STATES LIST</a> API can be used to get states for a selected country by a customer. After completing the form to place an order, the customer could be opted to choose from different payment methods.
           Having customer to choose from different PAYMENT METHODS is <strong>OPTIONAL</strong>, completely depends on CRM campaign configuration and the Website. 
       </p>
       
       <p> Choosing a Credit card payment method to pay for order is comparatively simple. Customer clicks on place order button after filling the form, selecting CREDIT CARD payment method and Websales 
-          <a href="#reference/orders/main-campaign/place-main-order">PLACE ORDER</a> API returns an object with information about placed order. 
+          <a href="#reference/orders/main-campaign/place-main-order">PLACE ORDER</a> API returns an object with information about the placed order. 
           PLACE ORDER API also returns a "CardId" which will be used further purchases such as UPSELL(s) product(s) in Website flow.
       </p>
       
-      <p> If a third party payment provider is configured in CRM Campaign and also developed as an option on Website. The Website flow differs and explained below.</p>
+      <p> If a third-party payment provider is configured in CRM Campaign and also developed as an option on Website. The Website flow differs and explained below.</p>
       
-      <p> Choosing a third party payment provider, the <a href="#reference/orders/main-campaign/place-main-order">PLACE ORDER</a> API returns a callback url where the customer should be redirected to the URL to complete the paying process.</p>
+      <p> Choosing a third-party payment provider, the <a href="#reference/orders/main-campaign/place-main-order">PLACE ORDER</a> API returns a callback url where the customer should be redirected to the URL to complete the paying process.</p>
       
-      <p> After customers finish payment process on third party payment provider website. The payment provider website will redirect the customer to <strong>SUCCESS URL</strong> configured in CRM campaign <strong>BASIC</strong> section with an Tracking Number appended to the <strong>SUCCESS URL</strong> as a query string.</p>
+      <p> After customers finish payment process on third-party payment provider website. The payment provider website will redirect the customer to <strong>SUCCESS URL</strong> configured in CRM campaign <strong>BASIC</strong> section with an Tracking Number appended to the <strong>SUCCESS URL</strong> as a query string.</p>
       
       <p> This Tracking Number appended as query string is used to call <a href="#reference/payments/verify-payments">UPDATE PAYMENT</a> API to complete the payment process. Please refer to <a href="#reference/payments/verify-payments">UPDATE PAYMENT</a> API for further information.</p>  
     
@@ -165,17 +165,17 @@ info:
       
       <p> Mini Upsell Page is optional and a mini upsell should be configured inside CRM campaign. Mini upsell is completely related to the Main/Order page product. Mini upsell can be configured respectively for each product in the list on Main/Order page. </p>
       
-      <p> Mini Upsell order data must be placed within the Main/Order page products <a href="#reference/orders/main-campaign/place-main-order" >PLACE ORDER</a> API object. Please refer to <a href="#reference/orders/main-campaign/place-main-order" >PLACE ORDER</a> API for further information. </p>
+      <p> Mini Upsell order data must be placed on the Main/Order page products <a href="#reference/orders/main-campaign/place-main-order" >PLACE ORDER</a> API object. Please refer to <a href="#reference/orders/main-campaign/place-main-order" >PLACE ORDER</a> API for further information. </p>
     
     ##Upsell(s) Page(Optional)
     
       <p> Upsell(s) Page us an optional configuration from CRM campaign. If Upsell(s) is configured inside CRM campaign, a list of Upsell(s) can be extracted using <a href="#reference/campaigns/upsells/get-list-of-upsells">GET UPSELL(s) LIST</a> Websales API.</p>
       
-      <p> In the UPSELL(s) list, a <strong>WEBKEY</strong> is returned with respective upsell. The <strong>WEBKEY</strong> will be used to GET list of products and prices for specific UPSELL. </p>
+      <p> In the UPSELL(s) list, a <strong>WEBKEY</strong> is returned with respective upsell. The <strong>WEBKEY</strong> will be used to GET a list of products and prices for specific UPSELL. </p>
       
       <p> Upsell(s) can be developed as <i>one-click</i> purchase. If the Main/Order page product(s) were bought using Credit Card, "cardId" could be used to make Upsell product(s) purchase. </p>
       
-      <p> If third party payment provider(s) were used for Main/Order page product(s) purchase customer could be redirected to thrid party payment provider Website. </p>
+      <p> If third-party payment provider(s) were used for Main/Order page product(s) purchase customer could be redirected to thrid party payment provider Website. </p>
       
       <p> Upsell(s) product purchase uses same <a href="#reference/orders/main-campaign/place-main-order">PLACE ORDER</a> API. </p>
     
@@ -183,9 +183,9 @@ info:
     
       <p> Confirmation Page should be the Last/Final page in the Website flow. All the purchased product(s) Order(s) information can be displayed to customers on this page. </p>
       
-      <p> Customers can also have an option to update thier <strong>Shipping Address</strong> using <a href="#reference/customers/create-or-update/update-customer">UPDATE SHIPPING ADDRESS</a> Websales API.</p>
+      <p> Customers can also have an option to update their <strong>Shipping Address</strong> using <a href="#reference/customers/create-or-update/update-customer">UPDATE SHIPPING ADDRESS</a> Websales API.</p>
       
-      <p> If the customers used third party payment provider to purchase product(s), an <strong>OPTIONAL</strong> <a href="#reference/payments/verify-payments">UPDATE PAYMENT</a> Websales API can also be called to complete the payment proccess.</p>
+      <p> If the customers used third-party payment provider to purchase the product(s), an <strong>OPTIONAL</strong> <a href="#reference/payments/verify-payments">UPDATE PAYMENT</a> Websales API can also be called to complete the payment process.</p>
     
     
 host: emanage-dev-websales-api.azurewebsites.net
@@ -193,9 +193,9 @@ schemes:
   - http
 paths:
   # /api/callback/onpex:
-  #   x-description: Call back to update payment proccessed by third party payment providers
+  #   x-description: Call back to update payment proccessed by third-party payment providers
   #   get:
-  #     summary: Update third party payment
+  #     summary: Update third-party payment
   #     tags:
   #       - Callback
   #     operationId: Callback_Get
@@ -241,40 +241,43 @@ paths:
   #         description: OK
   #         schema:
   #           type: object
-  /api/callback/aftership:
-    x-summary: Aftership
-    x-description: |
-      Used as callback api to update shipment information from Aftership (Shipment tracking)
-    post:
-      summary: Update shipment information
-      tags:
-        - Callback
-      operationId: Callback_PostAftership
-      consumes:
-        - application/json
-        - text/json
-        - application/xml
-        - text/xml
-        - application/x-www-form-urlencoded
-      produces:
-        - application/json
-        - text/json
-        - application/xml
-        - text/xml
-      parameters:
-        - name: model
-          in: body
-          required: true
-          schema:
-            $ref: '#/definitions/CallbackAftership'
-      responses:
-        '200':
-          description: OK
-          schema:
-            type: object
+  # /api/callback/aftership:
+  #   x-summary: Aftership
+  #   x-description: |
+  #     Used as callback api to update shipment information from Aftership (Shipment tracking)
+  #   post:
+  #     summary: Update shipment information
+  #     tags:
+  #       - Callback
+  #     operationId: Callback_PostAftership
+  #     consumes:
+  #       - application/json
+  #       - text/json
+  #       - application/xml
+  #       - text/xml
+  #       - application/x-www-form-urlencoded
+  #     produces:
+  #       - application/json
+  #       - text/json
+  #       - application/xml
+  #       - text/xml
+  #     parameters:
+  #       - name: model
+  #         in: body
+  #         required: true
+  #         schema:
+  #           $ref: '#/definitions/CallbackAftership'
+  #     responses:
+  #       '200':
+  #         description: OK
+  #         schema:
+  #           type: object
   '/api/campaigns/{webkey}/settings':
     x-summary: Campaign Settings
-    x-description: Retrieves basic campaign information, such as campaign name and default language code.
+    x-description: |
+      <p>Retrieves basic campaign information, such as campaign name and default language code.
+      It can be useful at a development stage to find a campaign based on a webkey. </p>
+      <p>Since there can be multiple websites in development simultaneously, there should be an easy way to determine what campaign is being currently used at a specific website. This information shouldn't be revealed to the customer but can be displayed in the console during development.</p>
     get:
       summary: Get campaign settings
       tags:
@@ -292,7 +295,7 @@ paths:
           required: true
           type: string
           format: uuid
-          default: 449885f8-eb6d-4888-bd7d-2530f0ac1c9b
+          default: d745437e-ef63-460e-b6a5-7364c1dbb92f
       responses:
         '200':
           description: OK
@@ -327,7 +330,7 @@ paths:
   '/api/campaigns/{webkey}/countries':
     x-summary: Countries list
     x-description: |
-      To place an order we need to have customers address. There are specific countries selected in the campaign and we need to have those countries listed on our website. Since we can have one website template for different campaigns, we want the list of countries be dynamically populated in every instance of the website.
+      To place an order we need to have customers address. There are specific countries selected in the campaign and we need to have those countries listed on our website. Since we can have one website template for different campaigns, we want the list of countries to be dynamically populated in every instance of the website.
       This endpoint returns a list of countries selected in the campaign. Once retrieved the list can be used in the dropdown.
     get:
       summary: Get list of countries
@@ -346,6 +349,7 @@ paths:
           required: true
           type: string
           format: uuid
+          default: d745437e-ef63-460e-b6a5-7364c1dbb92f
       responses:
         '200':
           description: OK
@@ -355,7 +359,7 @@ paths:
   '/api/campaigns/{webkey}/countrystates':
     x-summary: States
     x-description: |
-      Each country might have multiple states/provinces. We can also retrieve this data as soon as we have <a href="https://emanagecrm.docs.apiary.io/#reference/campaigns/apicampaignswebkeycountries">list of countries</a>. A good practice would be to get states/provinces after customer selects a country.
+      Each country might have multiple states/provinces. We can also retrieve this data as soon as we have <a href="https://emanagecrm.docs.apiary.io/#reference/campaigns/apicampaignswebkeycountries">a list of countries</a>. A good practice would be to get states/provinces after a customer selects a country.
       We already know how to get <a href="https://emanagecrm.docs.apiary.io/#reference/customers/apicampaignswebkeycustomerslocation">customer location</a>. So usually both country and states/provinces are going to be ready as soon as we get customer location.
     get:
       summary: Get list of states
@@ -374,6 +378,7 @@ paths:
           required: true
           type: string
           format: uuid
+          default: d745437e-ef63-460e-b6a5-7364c1dbb92f
         - name: countryCode
           in: query
           required: true
@@ -388,10 +393,13 @@ paths:
           schema:
             $ref: '#/definitions/CampaignCountryStateViewModel'
   '/api/campaigns/{webkey}/affiliate':
-    x-summary: Create New Affiliate
-    x-description: A website could have extra OPTIONAL page that would allow new affiliates to sign up to sell products. This API can help to achive such task.
+    x-summary: Affiliates
+    x-description: |
+      <p>A website could have an optional page that would allow new affiliates to sign up to sell products.</p>
+      <p>This API is used to submit a form with a potential affiliate information.</p>
+      
     post:
-      summary: Create Affiliate
+      summary: Apply for an affiliate program
       tags:
         - Campaigns
       operationId: Campaigns_Post
@@ -425,8 +433,8 @@ paths:
   '/api/campaigns/{webkey}/upsells':
     x-summary: Upsells
     x-description: |
-      After customer placed an order we can offer them upsells configured in the campaign.
-      The upsells api provides a list of upsells. Each upsell has its own campaign webkey and url. The new webkey can be used to retrieve all necessary data for the upsell offer and to purchase upsell products.
+      <p>After the customer placed an order we can offer them upsells configured in the campaign.</p>
+      <p>The upsells api provides a list of upsells. Each upsell has its own campaign Webkey and URL. The new Webkey can be used to retrieve all necessary data for the upsell offer and to purchase upsell products.</p>
     get:
       summary: Get list of upsells
       tags:
@@ -444,6 +452,7 @@ paths:
           required: true
           type: string
           format: uuid
+          default: d745437e-ef63-460e-b6a5-7364c1dbb92f
       responses:
         '200':
           description: OK
@@ -479,7 +488,8 @@ paths:
   '/api/campaigns/{webkey}/coupons/{couponCode}':
     x-summary: Coupon Info
     x-description: |
-      To get the Coupon behaviour such as 'if the coupon provides FREE SHIPPING' this API can be used. Please see the response object to check additional information provided by this API.
+      <p>This endpoint is used to get detailed information about a coupon behaviour. Discount and minimum purchase amounts are provided as raw values as well as formatted with a specific currency.</p>
+      <p>The information can be used for development purposes or displayed to a customer once they fill in a coupon code.</p>
     get:
       summary: Get coupon details
       tags:
@@ -497,14 +507,17 @@ paths:
           required: true
           type: string
           format: uuid
+          default: d745437e-ef63-460e-b6a5-7364c1dbb92f
         - name: couponCode
           in: path
           required: true
           type: string
+          default: FREESHIP
         - name: currencyCode
           in: query
           required: true
           type: string
+          default: USD
       responses:
         '200':
           description: OK
@@ -513,7 +526,9 @@ paths:
   '/api/campaigns/{webkey}/coupons/{couponCode}/calculate':
     x-summary: Apply coupon
     x-description: |
-      This API can be used to calculate discounted prices based on coupon code, currency, product and shipping prices.
+      <p>Normally, this endpoint is applied to determine final price and shipping discount.</p>
+      <p>These details are just for informational purposes. The coupon code still needs to be included in the order to work. The final price will be calculated in CRM.</p>
+      <p>The method can be used after a customer filled a coupon code and chose a product.</p>
     get:
       summary: Calculate prices
       tags:
@@ -531,24 +546,29 @@ paths:
           required: true
           type: string
           format: uuid
+          default: d745437e-ef63-460e-b6a5-7364c1dbb92f
         - name: couponCode
           in: path
           required: true
           type: string
+          default: FREESHIP
         - name: currencyCode
           in: query
           required: true
           type: string
+          default: USD
         - name: productPrice
           in: query
           required: true
           type: number
           format: double
+          default: 100
         - name: shippingPrice
           in: query
           required: true
           type: number
           format: double
+          default: 10
       responses:
         '200':
           description: OK
@@ -583,7 +603,9 @@ paths:
   #           $ref: '#/definitions/ExportCustomerViewModel'
   /api/customers:
     x-summary: Get Customer
-    x-description: Get Customer's information such as Email, Shipping and Billing address(s).
+    x-description: |
+      <p>Get customer information based on an email. Normally it is recommended to use the information entered by the customer and not to reveal any sensitive data to an unknown user. However, it is possible to have all previous addresses for an existing user. </p>
+      <p>As an example, once a customer filled their email they can be asked whether they want to have products shipped to their current address in "New York, Madison Ave".</p>
     get:
       summary: Get existing Customer
       tags:
@@ -608,7 +630,8 @@ paths:
   '/api/customers/{webkey}':
     x-summary: Create or Update
     x-description: |
-      Create new or Update existing customer information.
+      <p>Create new or update existing customer information. Typically there is no need to create a new customer because it is created (or updated) automatically when an order is placed.</p>
+      <p>Updating a customer is useful in case the customer had changed their address or we couldn't verify their address. In this case, it is suggested to let the customer know that the address needs to be clarified.</p>
     put:
       summary: Update customer
       tags:
@@ -680,8 +703,9 @@ paths:
   '/api/campaigns/{webkey}/customers/location':
     x-summary: Customer Location
     x-description: |
-      Information about customer location can be used for <a href="https://emanagecrm.docs.apiary.io/#reference/products">retrieving products</a>,
-      prefilling forms or changing website content.
+      <p>This endpoint providers information about customer location. </p>
+      <p>It can be used for <a href="https://emanagecrm.docs.apiary.io/#reference/products">retrieving products</a>,
+      prefilling forms or changing website content.</p>
     get:
       summary: Get customer location information
       tags:
@@ -699,6 +723,7 @@ paths:
           required: true
           type: string
           format: uuid
+          default: d745437e-ef63-460e-b6a5-7364c1dbb92f
       responses:
         '200':
           description: OK
@@ -759,8 +784,9 @@ paths:
   #           $ref: '#/definitions/FraudAnalysisResponse'
   '/api/orders/{webkey}':
     x-summary: Place Order
+# Place Order is on of the main API. It is used to make purchases by sending correct data. Please see the object below to see type of data needed to PLACE an ORDER.
     x-description: |
-      Place Order is on of the main API. It is used to make purchases by sending correct data. Please see the object below to see type of data needed to PLACE an ORDER.
+      <p>The place order API is responsible for sending orders to the CRM platform. This endpoint uses data filled by the customer, selected products and analytics. This endpoint will be used to place the main order with the funnel and miniupsell, as well as upsell orders.</p>
     post:
       summary: Place order/Purchase product.
       tags:
@@ -803,7 +829,7 @@ paths:
           schema:
             $ref: '#/definitions/PlaceOrderSaveResponseViewModel'
     put:
-          summary: Confirm payment for the products purchase using third party payment providers.
+          summary: Confirm payment for the products purchase using third-party payment providers.
           tags:
             - Orders
           operationId: Orders_Put
@@ -844,7 +870,7 @@ paths:
                 $ref: '#/definitions/PlaceOrderUpdateReturnViewModel'            
   '/api/orders/upsell/{orderNumber}':
     x-summary: Get purchased Order's Upsells
-    x-description: This API is for call center sale use. CSR's can get upsells related to existing purchased Order in "Upsell Sale" sub-menu under "Customer Service" menu in CRM.
+    x-description: This API is for call centre sale use. CSR's can get upsells related to existing purchased Order in "Upsell Sale" sub-menu under "Customer Service" menu in CRM.
     post:
       summary: Get list of Upsells
       tags:
@@ -892,6 +918,8 @@ paths:
             type: object
   '/api/campaigns/{webkey}/products/prices':
     x-summary: Prices
+    x-description: |
+      <p> This is the main endpoint to retrieve a list of products from a campaign. By default, without country code specified, Websales API will define location automatically and provide prices based on the request location. This data can be used to display the list of products and prices to a user. Each product in the list has extensive information including but not limited to: name, price, available shipping methods. The prices are served both as raw values or formatted with the defined currency: "5" and "$5.00"</p>
     get:
       summary: Get products and prices from a Campaign
       tags:
@@ -909,6 +937,7 @@ paths:
           required: true
           type: string
           format: uuid
+          default: d745437e-ef63-460e-b6a5-7364c1dbb92f
       responses:
         '200':
           description: OK
@@ -916,7 +945,9 @@ paths:
             $ref: '#/definitions/CampaignProductSimpleListViewModel'
   '/api/campaigns/{webkey}/products/prices/{countryCode}':
     x-summary: Get Product prices based on Country Code
-    x-Description: Get the Product prices based on specified Country code.
+    x-description: |
+      <p>This endpoint provides the same data as previous one, but a country code can be specified. Usually this data is required by customer service.</p>
+      <p>It also can be used at development stage to check the prices for different countries (the other option is proxy settings).</p>
     get:
       summary: Get product prices (with country code)
       tags:
@@ -934,6 +965,7 @@ paths:
           required: true
           type: string
           format: uuid
+          default: d745437e-ef63-460e-b6a5-7364c1dbb92f
         - name: countryCode
           in: path
           required: true
@@ -945,7 +977,9 @@ paths:
             $ref: '#/definitions/CampaignProductSimpleListViewModel'
   '/api/campaigns/{webkey}/products/{productId}/miniupsells':
     x-summary: Mini upsells
-    x-description: Get details about Mini upsell related to a Product
+    x-description: |
+      <p>Following endpoint provides a list of miniupsells linked to a specified product.</p>
+      <p>Normally it is used right after a customer has submitted a form to purchase a product.</p>
     get:
       summary: Get Mini Upsells for Product
       tags:
@@ -963,11 +997,13 @@ paths:
           required: true
           type: string
           format: uuid
+          default: d745437e-ef63-460e-b6a5-7364c1dbb92f
         - name: productId
           in: path
           required: true
           type: integer
           format: int32
+          default: 917704
       responses:
         '200':
           description: OK
@@ -975,7 +1011,9 @@ paths:
             $ref: '#/definitions/CampaignProductListViewModel'
   '/api/campaigns/{webkey}/products/{productId}/miniupsells/{countryCode}':
     x-summary: Get Mini upsell for Product
-    x-description: Get list of Mini upsells details/prices for a specific Product and Country code
+    x-description: |
+      <p>This endpoint provides the same data as previous one, but a country code can be specified. Usually this data is required by customer service.</p>
+      <p>It also can be used at development stage to check the prices for different countries (the other option is proxy settings).</p>
     get:
       summary: Get list of Mini upsells
       tags:
@@ -993,11 +1031,13 @@ paths:
           required: true
           type: string
           format: uuid
+          default: d745437e-ef63-460e-b6a5-7364c1dbb92f
         - name: productId
           in: path
           required: true
           type: integer
           format: int32
+          default: 917704
         - name: countryCode
           in: path
           required: true
@@ -1009,7 +1049,8 @@ paths:
             $ref: '#/definitions/CampaignProductSimpleListViewModel'
   '/api/campaigns/{webkey}/products/{productId}/{countryCode}':
     x-summary: Get Product details
-    x-description: Get Product details such as Product name, weight, image, and etc...
+    x-description: |
+      <p>This endpoint returns detailed information about a product. In comparisement with the standard list of products with prices, this endpoint contains such information as product weight, unit of measurement, images.</p>
     get:
       summary: Get Product Details
       tags:
@@ -1027,15 +1068,18 @@ paths:
           required: true
           type: string
           format: uuid
+          default: d745437e-ef63-460e-b6a5-7364c1dbb92f
         - name: productId
           in: path
           required: true
           type: integer
           format: int32
+          default: 917704
         - name: countryCode
           in: path
           required: true
           type: string
+          default: US
       responses:
         '200':
           description: OK
@@ -1061,15 +1105,18 @@ paths:
           required: true
           type: string
           format: uuid
+          default: d745437e-ef63-460e-b6a5-7364c1dbb92f
         - name: productId
           in: path
           required: true
           type: integer
           format: int32
+          default: 917704
         - name: countryCode
           in: query
           required: false
           type: string
+          default: CA
         - name: isMiniUpsell
           in: query
           required: false
@@ -1081,7 +1128,8 @@ paths:
             $ref: '#/definitions/CampaignProductShippingViewModel'
   '/api/shoppingcart/{webkey}/new':
     x-summary: Create Shopping cart
-    x-description: Create a new Shopping cart.
+    x-description: This API creates a new shopping cart. It returns a Session Id that could be used to get the shopping cart.
+                   To create a new shopping cart one product must be added to it by passing productId to the API.
     post:
       summary: Create Shopping cart
       tags:
@@ -1118,7 +1166,9 @@ paths:
             example: 00000000-0000-0000-0000-000000000000
   '/api/shoppingcart/{webkey}':
     x-summary: Get Shopping cart
-    x-description: Get existing Shopping cart for returning customer.
+    x-description: This API fetches an existing shopping cart. Campaign Web Key and Session Id is required to fetch an existing Shopping
+                   Cart. This API can be used to retrieve an exisiting shopping cart products for returning customers. 
+
     get:
       summary: Get Shopping cart
       tags:
@@ -1148,7 +1198,8 @@ paths:
             $ref: '#/definitions/ShoppingCartPublicViewModel'
   '/api/shoppingcart/{webkey}/checkout':
     x-summary: Shopping cart checkout
-    x-description: A post request to complete checkout.
+    x-description: This API is used to complete the checkout process. It could be used on the order page. It places an order for all the products
+                   in the Shopping cart.
     post:
       summary: Shopping cart checkout
       tags:
@@ -1182,8 +1233,12 @@ paths:
           schema:
             $ref: '#/definitions/CheckoutResponse'
   '/api/shoppingcart/{webkey}/confirmpayment':
-    x-summary: Confirm third party payments
-    x-description: A confirmation API call to confirm customers return from third party payment providers. This proccess is scheduled to run in CRM, hence this API is not mandatory. But to have cutomers order proccessed right away use this API.
+    x-summary: Confirm third-party payments
+    x-description: This API is used to complete the third party payment providers process. If a customer is paying for shopping cart order using
+                  third party payment provider(s) (Paypal, and etc...), customer will be redirected to a third party provider(s) website. After
+                  completing the payment process on third party payment provider(s) Website, customer gets redirected to SUCESS URL/Shopping cart
+                  website configured in CRM campaign. This API could be used at this point to confirm that customer came back after paying using third
+                  party payment provider(s).
     post:
       summary: Confirm payments
       tags:
@@ -1217,7 +1272,9 @@ paths:
             $ref: '#/definitions/ConfirmPaymentResponse'
   '/api/shoppingcart/{webkey}/applycoupon':
     x-summary: Apply Coupon to Shopping cart
-    x-description: An API to apply coupon pricing set in CRM to all the products added to a Shopping cart. Coupon won't be applied to a product added after coupon is applied to already existing products in Shopping cart.
+    x-description: This API is used to apply the coupon to the products in a Shopping cart. It helps to apply the discounted prices, free shipping or any other 
+                    coupon deals to the list of products inside Shopping cart. It can only be used once. If a coupon is applied to list of product inside Shopping 
+                    cart and customer added another product the coupon pricing WON'T be applied to new product added to the Shopping cart.
     post:
       summary: Apply Coupon
       tags:
@@ -1251,7 +1308,8 @@ paths:
             $ref: '#/definitions/ShoppingCartPublicViewModel'
   '/api/shoppingcart/{webkey}/customers/new':
     x-summary: Create new Customer
-    x-description: Create a new Customer
+    x-description: This API is used to create a new customer in Shopping cart Website. A new customer can be created on any page in the Website. When a new
+                   Customer is created using this API and the customers completes the purchase, it will automatically link the Customer to this order.
     post:
       summary: Create Customer
       tags:
@@ -1291,7 +1349,8 @@ paths:
             type: object
   '/api/shoppingcart/{webkey}/add':
     x-summary: Add to existing Shopping cart
-    x-description: To add a product to existing Shopping cart use this API
+    x-description: This API is used to ADD a new product to an existing Shopping cart. When a customer wants to add multiple products to the Shopping cart
+                  this API will be used to achieve such task. 
     post:
       summary: Add product
       tags:
@@ -1331,7 +1390,9 @@ paths:
             type: object
   '/api/shoppingcart/{webkey}/remove':
     x-summary: Remove product from Shopping cart
-    x-description: To remove a product from a shopping cart use this API.
+    x-description: This API is used to REMOVE ecxisting products from a Shopping cart. If a customer have multiple products added to a Shopping cart and would
+                    like to remove one this API can be used to achieve such task. If a customer set the quanity of product in a Shopping cart, this API can be used and
+                    remove the respective product from Shopping cart.
     delete:
       summary: Remove product
       tags:
@@ -1366,7 +1427,8 @@ paths:
             type: object
   '/api/shoppingcart/{webkey}/update':
     x-summary: Update product quantity
-    x-description: This API is used to update quantity of an existing product in Shopping cart
+    x-description: This API is used to update the quantity of a product inside the Shopping cart. Customer can update a product quantity to buy multiple items of same
+                    product. Customer can also might change quantity to less items. This API helps to achieve such tasks.
     put:
       summary: Update quantity of existing product in Shopping cart
       tags:
@@ -1406,7 +1468,8 @@ paths:
             type: object
   '/api/shoppingcart/{webkey}/shippingmethod':
     x-summary: Select Shipping Method
-    x-description: Add a Shipping method to a product in Shopping cart.
+    x-description: This API is used to get the list of Shipping Methods respective to a product. List of Shipping Method can be used to ask customers to select a favour
+                    shipping method for their product(s) delivery.
     put:
       summary: Add Shipping Method
       tags:
